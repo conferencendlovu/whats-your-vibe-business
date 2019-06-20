@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">Whats Your Vibe</string>
+    <string name="sign_out">Sign Out</string>
+    <string name="membership">Membership</string>
+    <string name="drawer_close">WYV</string>
+    <string name="drawer_open">Select Item</string>
+    <string name="image_alt_tag">Whats Your Vibe</string>
+
+    <string-array name="event_categories">
+        <item>Award Shows</item>
+        <item>Concerts</item>
+        <item>Conferences</item>
+        <item>Fashion Shows</item>
+        <item>Galas</item>
+        <item>Night Clubs</item>
+        <item>Picnics</item>
+        <item>Private Events</item>
+        <item>Restaurants</item>
+        <item>Tourist Sites</item>
+    </string-array>
+
+    <string-array name="event_types">
+        <item>Private Event</item>
+        <item>Public Event</item>
+    </string-array>
+</resources>

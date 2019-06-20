@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.event.EventOverviewActivity">
+
+    <include
+        android:id="@+id/event_overview_toolbar"
+        layout="@layout/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <ImageView
+        android:id="@+id/event_overview_ivCoverImage"
+        android:src="@drawable/event_bg_default"
+        android:layout_below="@id/event_overview_toolbar"
+        android:layout_width="match_parent"
+        android:scaleType="fitXY"
+        android:layout_height="200dp" />
+
+    <TextView
+        android:id="@+id/event_overview_tvEventName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/event_overview_ivCoverImage"
+        android:layout_gravity="center_vertical"
+        android:layout_marginBottom="-179dp"
+        android:layout_marginStart="15dp"
+        android:gravity="center_vertical"
+        android:textAllCaps="true"
+        android:text="MY EVENT NAME GOES HERE"
+        android:textColor="#fff"
+        android:textSize="18sp" />
+
+
+    <android.support.v7.widget.CardView
+        android:layout_below="@id/event_overview_ivCoverImage"
+        android:id="@+id/event_overview_cvCardView1"
+        app:cardCornerRadius="5dp"
+        app:cardElevation="5dp"
+        android:layout_margin="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:gravity="end"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/event_overview_btnSave"
+                android:layout_margin="5dp"
+                android:src="@drawable/icon_save"
+                android:visibility="gone"
+                android:padding="5dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp" />
+
+            <ImageView
+                android:id="@+id/event_overview_btnEdit"
+                android:layout_margin="5dp"
+                android:src="@drawable/icon_edit"
+                android:padding="5dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp" />
+
+            <ImageView
+                android:id="@+id/event_overview_btnCancel"
+                android:layout_margin="5dp"
+                android:padding="5dp"
+                android:src="@drawable/icon_delete"
+                android:layout_width="50dp"
+                android:layout_height="50dp" />
+
+        </LinearLayout>
+
+
+    </android.support.v7.widget.CardView>
+
+    <LinearLayout
+        android:id="@+id/event_overview_cvLinearLayout1"
+        android:layout_margin="10dp"
+        android:padding="10dp"
+        android:layout_below="@id/event_overview_cvCardView1"
+        android:background="#fff"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/event_overview_tvEventDate"
+            android:drawableTop="@drawable/calender"
+            android:drawablePadding="10dp"
+            android:textSize="14sp"
+            android:textAlignment="center"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/event_overview_tvEventShares"
+            android:drawablePadding="10dp"
+            android:drawableTop="@drawable/shares"
+            android:textSize="14sp"
+            android:textAlignment="center"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/event_overview_tvEventGoing"
+            android:drawablePadding="10dp"
+            android:drawableTop="@drawable/going"
+            android:textSize="14sp"
+            android:textAlignment="center"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/event_overview_etEventDescription"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_below="@id/event_overview_cvLinearLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.design.widget.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:enabled="false"
+            android:minLines="3"
+            android:maxLines="3"
+            android:maxLength="300"
+            android:gravity="top"
+            android:hint="Event Description" />
+    </android.support.design.widget.TextInputLayout>
+
+
+</RelativeLayout>

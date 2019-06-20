@@ -1,0 +1,107 @@
+{
+  "project_info": {
+    "project_number": "1062004872466",
+    "firebase_url": "https://whatsyourvibe.firebaseio.com",
+    "project_id": "whatsyourvibe",
+    "storage_bucket": "whatsyourvibe.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1062004872466:android:952ecb351731c18a",
+        "android_client_info": {
+          "package_name": "za.co.whatsyourvibe"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1062004872466-cvhg68gohrsomoq2tbdmff29h0ps1k6o.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "za.co.whatsyourvibe",
+            "certificate_hash": "efeecbad674ccc50738c9d01c9c0ad85f0e5e701"
+          }
+        },
+        {
+          "client_id": "1062004872466-7drp7hlsgni9dpkkegc2t6e85ir6qvl3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "za.co.whatsyourvibe",
+            "certificate_hash": "05e4de3efcc13e74f205f4a1f8a3fbca2568c1c9"
+          }
+        },
+        {
+          "client_id": "1062004872466-jeruaq2aaci2cft5m8env7j95a74e8b0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA5RBjSX_LBeMMMBVgvY333EXsy0OgdHCI"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1062004872466-jeruaq2aaci2cft5m8env7j95a74e8b0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1062004872466:android:fc44932200829da8",
+        "android_client_info": {
+          "package_name": "za.co.whatsyourvibe.business"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1062004872466-lp5dschtar0q2fvp07qlmoo8vsgd37m4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "za.co.whatsyourvibe.business",
+            "certificate_hash": "05e4de3efcc13e74f205f4a1f8a3fbca2568c1c9"
+          }
+        },
+        {
+          "client_id": "1062004872466-jeruaq2aaci2cft5m8env7j95a74e8b0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA5RBjSX_LBeMMMBVgvY333EXsy0OgdHCI"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1062004872466-jeruaq2aaci2cft5m8env7j95a74e8b0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

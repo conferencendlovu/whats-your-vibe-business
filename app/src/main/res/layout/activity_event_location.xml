@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimaryDark"
+    android:orientation="vertical"
+    tools:context=".activities.event.EventLocationActivity">
+
+    <ImageView
+        android:id="@+id/event_location_ivClose"
+        android:src="@drawable/close"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="20dp" />
+
+    <TextView
+        android:textColor="@color/colorTextButton"
+        android:gravity="center"
+        android:textSize="28sp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="50dp"
+        android:layout_width="260dp"
+        android:layout_height="wrap_content"
+        android:text="Where is your event happening and when?."
+        />
+
+
+    <TextView
+        android:text="Type your location in search box, below"
+        android:textSize="12sp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="20dp"
+        android:textStyle="italic|bold"
+        android:textColor="@color/colorTextButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <fragment android:id="@+id/google_places"
+        android:layout_width="match_parent"
+        android:layout_marginStart="25dp"
+        android:layout_marginEnd="25dp"
+        android:layout_height="50dp"
+        android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
+        />
+
+    <android.support.design.widget.TextInputLayout
+
+        android:id="@+id/event_location_tilEventLocation"
+        android:background="@drawable/round_corner_border"
+        android:padding="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.design.widget.TextInputEditText
+            android:enabled="false"
+            android:hint="Location"
+            android:padding="5dp"
+            android:background="@android:color/transparent"
+            android:maxLines="1"
+            android:minLines="1"
+            android:maxLength="50"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </android.support.design.widget.TextInputLayout>
+
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/event_location_tilEventTime"
+        android:background="@drawable/round_corner_border"
+        android:padding="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.design.widget.TextInputEditText
+            android:hint="Time"
+            android:background="@android:color/transparent"
+            android:padding="5dp"
+            android:maxLines="1"
+            android:minLines="1"
+            android:maxLength="5"
+            android:inputType="time"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </android.support.design.widget.TextInputLayout>
+    <TextView
+        android:text="Time format must be hh:00 - 18:00"
+        android:textSize="12sp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="35dp"
+        android:textStyle="italic|bold"
+        android:textColor="@color/colorTextButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/event_location_tilEventDate"
+        android:background="@drawable/round_corner_border"
+        android:padding="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.design.widget.TextInputEditText
+            android:hint="Date of Event"
+            android:padding="5dp"
+            android:background="@android:color/transparent"
+            android:maxLines="1"
+            android:minLines="1"
+            android:maxLength="10"
+            android:inputType="date"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </android.support.design.widget.TextInputLayout>
+    <TextView
+        android:text="Date format must be dd/mm/yyy - 31/12/2019"
+        android:textSize="12sp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="35dp"
+        android:textStyle="italic|bold"
+        android:textColor="@color/colorTextButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:layout_height="0dp" />
+
+    <Button
+        android:id="@+id/event_location_btnNext"
+        android:text="Next"
+        android:textColor="#fff"
+        android:textSize="18sp"
+        android:background="@color/colorAccent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>

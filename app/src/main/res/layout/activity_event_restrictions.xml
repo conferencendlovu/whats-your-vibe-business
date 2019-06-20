@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimaryDark"
+    android:orientation="vertical"
+    tools:context=".activities.event.EventRestrictionsActivity">
+
+    <ImageView
+        android:id="@+id/event_restrictions_ivClose"
+        android:src="@drawable/close"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="20dp" />
+
+    <TextView
+        android:textColor="@color/colorTextButton"
+        android:gravity="center"
+        android:textSize="28sp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="30dp"
+        android:layout_width="260dp"
+        android:layout_height="wrap_content"
+        android:text="Event restrictions and preferences"
+        />
+
+
+    <Switch
+        android:textColor="@color/colorTextButton"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="50dp"
+        android:id="@+id/event_restrictions_swChildren"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:text="No children" />
+    <Switch
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/colorTextButton"
+        android:id="@+id/event_restrictions_swSmoking"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:text="Smoking not allowed" />
+    <Switch
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/colorTextButton"
+        android:id="@+id/event_restrictions_swAlcohol"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:text="Alcohol Allowed" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:layout_height="0dp" />
+
+    <Button
+        android:id="@+id/event_restrictions_btnNext"
+        android:text="Next"
+        android:textColor="#fff"
+        android:textSize="18sp"
+        android:background="@color/colorAccent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>

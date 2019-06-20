@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimaryDark"
+    android:orientation="vertical"
+    tools:context=".activities.event.EventOptionsActivity">
+
+    <ImageView
+        android:id="@+id/event_restrictions_ivClose"
+        android:src="@drawable/close"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="20dp" />
+
+    <TextView
+        android:textColor="@color/colorTextButton"
+        android:gravity="center"
+        android:textSize="28sp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="30dp"
+        android:layout_width="260dp"
+        android:layout_height="wrap_content"
+        android:text="Price and privacy options"
+        />
+
+
+    <Switch
+        android:textColor="@color/colorTextButton"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="50dp"
+        android:id="@+id/event_options_swEventFee"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:text="This is a paid event" />
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/event_options_tilEventFee"
+        android:visibility="gone"
+        android:background="@drawable/round_corner_border"
+        android:padding="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.design.widget.TextInputEditText
+            android:hint="Event Entry Fee"
+            android:background="@android:color/transparent"
+            android:maxLines="1"
+            android:minLines="1"
+            android:maxLength="5"
+            android:inputType="numberDecimal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </android.support.design.widget.TextInputLayout>
+
+
+    <TextView
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="8dp"
+        android:textColor="@color/colorTextButton"
+        android:text="Privacy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <RadioGroup
+        android:id="@+id/event_options_rbgPrivacy"
+        android:orientation="horizontal"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:padding="8dp"
+        android:background="@drawable/round_corner_border"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <RadioButton
+            android:id="@+id/event_options_rbPublic"
+            android:textColor="@color/colorTextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Open to Public"
+            android:paddingEnd="10dp"
+            />
+        <RadioButton
+            android:id="@+id/event_options_rbPrivate"
+            android:textColor="@color/colorTextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Private Event"
+            android:paddingEnd="10dp"
+            />
+    </RadioGroup>
+
+
+    <TextView
+        android:textStyle="italic"
+        android:textSize="12sp"
+        android:textColor="@color/colorTextButton"
+        android:text="By clicking Create event you agreeing on Whats Your Vibe terms and conditions found at www.whatsyourvibe.co.za/termsandconditions"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:layout_marginTop="30dp"
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/event_options_btnCreateEvent"
+        android:text="Create Event"
+        android:textSize="18sp"
+        android:textColor="#fff"
+        android:background="@drawable/primary_button_background"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>
