@@ -47,65 +47,65 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <android.support.design.widget.TextInputLayout
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_marginTop="10dp"
                 android:background="@drawable/text_field_background"
                 android:id="@+id/sign_up_tilBusinessName"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <android.support.design.widget.TextInputEditText
+                <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:maxLines="1"
                     android:textSize="18sp"
                     android:hint="Business Name" />
-            </android.support.design.widget.TextInputLayout>
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <android.support.design.widget.TextInputLayout
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_marginTop="10dp"
                 android:id="@+id/sign_up_tilBusinessEmail"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <android.support.design.widget.TextInputEditText
+                <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:maxLines="1"
                     android:textSize="18sp"
                     android:inputType="textEmailAddress"
                     android:hint="Business Email Address" />
-            </android.support.design.widget.TextInputLayout>
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <android.support.design.widget.TextInputLayout
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_marginTop="10dp"
                 android:id="@+id/sign_up_tilPassword"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <android.support.design.widget.TextInputEditText
+                <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:maxLines="1"
                     android:textSize="18sp"
                     android:inputType="textPassword"
                     android:hint="Create Password" />
-            </android.support.design.widget.TextInputLayout>
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <android.support.design.widget.TextInputLayout
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_marginTop="10dp"
                 android:id="@+id/sign_up_tilConfirmPassword"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <android.support.design.widget.TextInputEditText
+                <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:maxLines="1"
                     android:textSize="18sp"
                     android:inputType="textPassword"
                     android:hint="Confirm Password" />
-            </android.support.design.widget.TextInputLayout>
+            </com.google.android.material.textfield.TextInputLayout>
 
             <Button
                 android:layout_marginTop="15dp"

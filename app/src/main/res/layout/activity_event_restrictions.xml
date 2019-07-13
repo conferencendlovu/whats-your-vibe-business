@@ -4,19 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimaryDark"
+    android:background="@drawable/app_gradient_background"
     android:orientation="vertical"
     tools:context=".activities.event.EventRestrictionsActivity">
 
-    <ImageView
-        android:id="@+id/event_restrictions_ivClose"
-        android:src="@drawable/close"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="20dp"
-
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="20dp" />
+    <include
+        android:id="@+id/event_restrictions_toolbar"
+        layout="@layout/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
     <TextView
         android:textColor="@color/colorTextButton"
@@ -55,18 +51,15 @@
         android:layout_height="wrap_content"
         android:text="Alcohol Allowed" />
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_weight="1"
-        android:layout_height="0dp" />
-
     <Button
         android:id="@+id/event_restrictions_btnNext"
         android:text="Next"
+        android:layout_marginTop="15dp"
         android:textColor="#fff"
         android:textSize="18sp"
         android:background="@color/colorAccent"
-        android:layout_width="match_parent"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
 </LinearLayout>

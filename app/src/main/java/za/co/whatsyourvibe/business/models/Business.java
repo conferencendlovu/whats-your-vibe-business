@@ -2,13 +2,22 @@ package za.co.whatsyourvibe.business.models;
 
 public class Business {
     private String businessId;
+
     private String businessName;
+
     private String businessEmail;
+
     private String membershipType;
+
     private String benefits;
+
     private String membershipFee;
+
     private String membershipId;
 
+    private String byusinessAddress;
+
+    private String businessLogo;
 
     public Business() {
     }
@@ -67,5 +76,21 @@ public class Business {
 
     public void setBenefits(String benefits) {
         this.benefits = benefits;
+    }
+
+    public String getByusinessAddress() {
+        return byusinessAddress;
+    }
+
+    public void setByusinessAddress(String byusinessAddress) {
+        this.byusinessAddress = byusinessAddress;
+    }
+
+    public String getBusinessLogo() {
+        return businessLogo;
+    }
+
+    public void setBusinessLogo(String businessLogo) {
+        this.businessLogo = businessLogo;
     }
 }

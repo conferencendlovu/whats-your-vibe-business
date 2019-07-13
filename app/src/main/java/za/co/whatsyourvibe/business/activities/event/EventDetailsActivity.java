@@ -2,8 +2,10 @@ package za.co.whatsyourvibe.business.activities.event;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.design.widget.TextInputLayout;
-import android.support.v7.app.AppCompatActivity;
+import com.google.android.material.textfield.TextInputLayout;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -28,6 +30,14 @@ public class EventDetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_details);
 
+        Toolbar toolbar = findViewById(R.id.event_details_toolbar);
+
+        setSupportActionBar(toolbar);
+
+        getSupportActionBar().setTitle("Event Details");
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         tilEventName = findViewById(R.id.event_details_tilEventName);
         tilDescription = findViewById(R.id.event_details_tilEventDescription);
 
@@ -35,20 +45,10 @@ public class EventDetailsActivity extends AppCompatActivity {
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(EventDetailsActivity.this, EventLocationActivity.class);
-                startActivity(i);
-
                 checkInputs();
             }
         });
 
-        ImageView ivClose = findViewById(R.id.event_details_ivClose);
-        ivClose.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
     }
 
     private void checkInputs(){
@@ -84,5 +84,8 @@ public class EventDetailsActivity extends AppCompatActivity {
         EventCategory.myEvent.setName(eventName);
         EventCategory.myEvent.setDescription(eventDescription);
         EventCategory.myEvent.setPoster("default_poster.png");
+
+        Intent i = new Intent(EventDetailsActivity.this, EventLocationActivity.class);
+        startActivity(i);
     }
 }

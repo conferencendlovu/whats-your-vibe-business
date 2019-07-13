@@ -2,7 +2,9 @@ package za.co.whatsyourvibe.business.activities.event;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -14,6 +16,8 @@ import za.co.whatsyourvibe.business.R;
 
 
 public class EventRestrictionsActivity extends AppCompatActivity {
+
+    private static final String TAG = "EventRestrictionsActivi";
 
     private Switch smoking, children,alcohol;
 
@@ -27,6 +31,14 @@ public class EventRestrictionsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_restrictions);
+
+        Toolbar toolbar = findViewById(R.id.event_restrictions_toolbar);
+
+        setSupportActionBar(toolbar);
+
+        getSupportActionBar().setTitle("Event Restrictions");
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         smoking = findViewById(R.id.event_restrictions_swSmoking);
         children = findViewById(R.id.event_restrictions_swChildren);

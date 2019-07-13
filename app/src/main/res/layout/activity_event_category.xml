@@ -2,27 +2,24 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/colorPrimaryDark"
     android:orientation="vertical"
+    android:background="@drawable/app_gradient_background"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activities.event.EventCategory">
 
-    <ImageView
-        android:id="@+id/event_category_ivClose"
-        android:src="@drawable/close"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="20dp" />
+    <include
+        android:id="@+id/event_category_toolbar"
+        layout="@layout/toolbar"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent" />
 
     <TextView
         android:textColor="@color/colorTextButton"
         android:gravity="center"
         android:textSize="28sp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="15dp"
         android:layout_width="260dp"
         android:layout_height="wrap_content"
         android:text="What type of event you want to create?"
@@ -30,13 +27,13 @@
 
     <ScrollView
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="20dp"
-        android:scrollbars="vertical"
-        android:layout_width="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_width="match_parent"
         android:layout_weight="1"
         android:layout_height="0dp">
 
         <LinearLayout
+            android:layout_gravity="center_horizontal"
             android:gravity="center_horizontal"
             android:layout_width="wrap_content"
             android:orientation="vertical"
@@ -116,7 +113,7 @@
                     android:layout_margin="10dp"
                     android:textSize="18sp"
                     android:textColor="@color/colorTextButton"
-                    android:text="AWARDS SHOWS"
+                    android:text="AWARD SHOWS"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
@@ -174,7 +171,7 @@
                     android:layout_margin="10dp"
                     android:textSize="18sp"
                     android:textColor="@color/colorTextButton"
-                    android:text="Restaurants"
+                    android:text="RESTAURANTS"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
@@ -322,8 +319,11 @@
         android:text="Next"
         android:textColor="#fff"
         android:textSize="18sp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="10dp"
         android:background="@color/colorAccent"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
 </LinearLayout>

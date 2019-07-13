@@ -4,19 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimaryDark"
+    android:background="@drawable/app_gradient_background"
     android:orientation="vertical"
     tools:context=".activities.event.EventOptionsActivity">
 
-    <ImageView
-        android:id="@+id/event_restrictions_ivClose"
-        android:src="@drawable/close"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="20dp"
-
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="20dp" />
+    <include
+        android:id="@+id/event_options_toolbar"
+        layout="@layout/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
     <TextView
         android:textColor="@color/colorTextButton"
@@ -39,7 +35,7 @@
         android:layout_height="wrap_content"
         android:text="This is a paid event" />
 
-    <android.support.design.widget.TextInputLayout
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/event_options_tilEventFee"
         android:visibility="gone"
         android:background="@drawable/round_corner_border"
@@ -50,7 +46,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <android.support.design.widget.TextInputEditText
+        <com.google.android.material.textfield.TextInputEditText
             android:hint="Event Entry Fee"
             android:background="@android:color/transparent"
             android:maxLines="1"
@@ -59,7 +55,7 @@
             android:inputType="numberDecimal"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
-    </android.support.design.widget.TextInputLayout>
+    </com.google.android.material.textfield.TextInputLayout>
 
 
     <TextView

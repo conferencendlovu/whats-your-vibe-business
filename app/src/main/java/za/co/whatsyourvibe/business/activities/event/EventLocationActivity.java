@@ -1,15 +1,22 @@
 package za.co.whatsyourvibe.business.activities.event;
 
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.design.widget.TextInputLayout;
-import android.support.v7.app.AppCompatActivity;
+
+import com.google.android.material.textfield.TextInputLayout;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.DialogFragment;
+
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.TimePicker;
 
 import com.google.android.gms.common.api.Status;
 import com.google.android.libraries.places.api.Places;
@@ -18,12 +25,16 @@ import com.google.android.libraries.places.api.net.PlacesClient;
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
 
+import java.text.DateFormat;
 import java.util.Arrays;
+import java.util.Calendar;
 
 import io.github.inflationx.viewpump.ViewPumpContextWrapper;
 import za.co.whatsyourvibe.business.R;
 
-public class EventLocationActivity extends AppCompatActivity {
+public class EventLocationActivity extends AppCompatActivity  implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
+
+    private static final String TAG = "EventLocationActivity";
 
     private TextInputLayout mEventLocation, mEventTime, mEventDate;
     private double dblLatitude, dblLongitude;
@@ -38,9 +49,49 @@ public class EventLocationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_location);
 
+        Toolbar toolbar = findViewById(R.id.event_location_toolbar);
+
+        setSupportActionBar(toolbar);
+
+        getSupportActionBar().setTitle("Event Location");
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         mEventLocation = findViewById(R.id.event_location_tilEventLocation);
         mEventDate = findViewById(R.id.event_location_tilEventDate);
+
+        mEventDate.getEditText().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setEventDate();
+            }
+        });
+
+        mEventDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setEventDate();
+            }
+        });
         mEventTime = findViewById(R.id.event_location_tilEventTime);
+
+        mEventTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                setEventTime();
+
+            }
+        });
+
+        mEventTime.getEditText().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                setEventTime();
+
+            }
+        });
 
         Button btnNext = findViewById(R.id.event_location_btnNext);
 
@@ -121,9 +172,58 @@ public class EventLocationActivity extends AppCompatActivity {
 
             @Override
             public void onError(Status status) {
-                Log.e("WYV", "An error occurred: " + status.getStatusMessage());
+                Log.e(TAG, "An error occurred: " + status.getStatusMessage());
             }
         });
+
+    }
+
+    @Override
+    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+
+        Calendar c = Calendar.getInstance();
+
+        c.set(Calendar.YEAR,year);
+
+        c.set(Calendar.MONTH,month);
+
+        c.set(Calendar.DAY_OF_MONTH,dayOfMonth);
+
+        String date = DateFormat.getDateInstance(DateFormat.FULL).format(c.getTime());
+
+        mEventDate.getEditText().setText(date);
+
+    }
+
+
+
+    private void setEventDate() {
+
+        DialogFragment eventDate = new za.co.whatsyourvibe.business.utils.DatePicker();
+
+        eventDate.show(getSupportFragmentManager(),"EVENT_DATE");
+    }
+
+
+    private void setEventTime() {
+
+        DialogFragment eventTime = new za.co.whatsyourvibe.business.utils.TimePicker();
+
+        eventTime.show(getSupportFragmentManager(),"EVENT_TIME");
+    }
+
+    @Override
+    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+
+       // Calendar c = Calendar.getInstance();
+
+       // c.set(Calendar.HOUR,hourOfDay);
+
+      //  c.set(Calendar.MINUTE,minute);
+
+        //String time =  DateFormat.getDateInstance(DateFormat.FULL).format(c.getTime());
+
+        mEventTime.getEditText().setText(hourOfDay + " : " + minute);
 
     }
 }

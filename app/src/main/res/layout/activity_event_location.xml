@@ -4,25 +4,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimaryDark"
+    android:background="@drawable/app_gradient_background"
     android:orientation="vertical"
     tools:context=".activities.event.EventLocationActivity">
 
-    <ImageView
-        android:id="@+id/event_location_ivClose"
-        android:src="@drawable/close"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="20dp" />
+    <include
+        android:id="@+id/event_location_toolbar"
+        layout="@layout/toolbar"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent" />
+
 
     <TextView
         android:textColor="@color/colorTextButton"
         android:gravity="center"
         android:textSize="28sp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="15dp"
         android:layout_width="260dp"
         android:layout_height="wrap_content"
         android:text="Where is your event happening and when?."
@@ -47,7 +45,7 @@
         android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
         />
 
-    <android.support.design.widget.TextInputLayout
+    <com.google.android.material.textfield.TextInputLayout
 
         android:id="@+id/event_location_tilEventLocation"
         android:background="@drawable/round_corner_border"
@@ -58,7 +56,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <android.support.design.widget.TextInputEditText
+        <com.google.android.material.textfield.TextInputEditText
             android:enabled="false"
             android:hint="Location"
             android:padding="5dp"
@@ -68,10 +66,10 @@
             android:maxLength="50"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
-    </android.support.design.widget.TextInputLayout>
+    </com.google.android.material.textfield.TextInputLayout>
 
 
-    <android.support.design.widget.TextInputLayout
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/event_location_tilEventTime"
         android:background="@drawable/round_corner_border"
         android:padding="10dp"
@@ -81,29 +79,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <android.support.design.widget.TextInputEditText
+        <com.google.android.material.textfield.TextInputEditText
             android:hint="Time"
             android:background="@android:color/transparent"
             android:padding="5dp"
-            android:maxLines="1"
-            android:minLines="1"
-            android:maxLength="5"
             android:inputType="time"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
-    </android.support.design.widget.TextInputLayout>
-    <TextView
-        android:text="Time format must be hh:00 - 18:00"
-        android:textSize="12sp"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="35dp"
-        android:textStyle="italic|bold"
-        android:textColor="@color/colorTextButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+    </com.google.android.material.textfield.TextInputLayout>
 
-
-    <android.support.design.widget.TextInputLayout
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/event_location_tilEventDate"
         android:background="@drawable/round_corner_border"
         android:padding="10dp"
@@ -113,41 +98,24 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <android.support.design.widget.TextInputEditText
+        <com.google.android.material.textfield.TextInputEditText
             android:hint="Date of Event"
             android:padding="5dp"
             android:background="@android:color/transparent"
-            android:maxLines="1"
-            android:minLines="1"
-            android:maxLength="10"
             android:inputType="date"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
-    </android.support.design.widget.TextInputLayout>
-    <TextView
-        android:text="Date format must be dd/mm/yyy - 31/12/2019"
-        android:textSize="12sp"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="35dp"
-        android:textStyle="italic|bold"
-        android:textColor="@color/colorTextButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
-
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_weight="1"
-        android:layout_height="0dp" />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <Button
         android:id="@+id/event_location_btnNext"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center_horizontal"
         android:text="Next"
         android:textColor="#fff"
         android:textSize="18sp"
         android:background="@color/colorAccent"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
 </LinearLayout>

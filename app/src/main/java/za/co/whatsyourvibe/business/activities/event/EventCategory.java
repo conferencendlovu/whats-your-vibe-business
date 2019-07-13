@@ -2,7 +2,9 @@ package za.co.whatsyourvibe.business.activities.event;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -36,6 +38,14 @@ public class EventCategory extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_category);
 
+        Toolbar toolbar = findViewById(R.id.event_category_toolbar);
+
+        setSupportActionBar(toolbar);
+
+        getSupportActionBar().setTitle("Create Event");
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         initViews();
         setOnClickListeners();
 
@@ -52,13 +62,6 @@ public class EventCategory extends AppCompatActivity implements View.OnClickList
             }
         });
 
-        ImageView ivClose = findViewById(R.id.event_category_ivClose);
-        ivClose.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
     }
 
     private void initViews() {

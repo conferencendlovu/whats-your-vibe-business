@@ -5,6 +5,8 @@
     <string name="drawer_close">WYV</string>
     <string name="drawer_open">Select Item</string>
     <string name="image_alt_tag">Whats Your Vibe</string>
+    <string name="business_email_address">Business Email Address</string>
+    <string name="address">Address</string>
 
     <string-array name="event_categories">
         <item>Award Shows</item>

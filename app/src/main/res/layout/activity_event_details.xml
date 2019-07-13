@@ -4,31 +4,28 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimaryDark"
+    android:background="@drawable/app_gradient_background"
     android:orientation="vertical"
     tools:context=".activities.event.EventDetailsActivity">
 
-    <ImageView
-        android:id="@+id/event_details_ivClose"
-        android:src="@drawable/close"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="20dp" />
+    <include
+        android:id="@+id/event_details_toolbar"
+        layout="@layout/toolbar"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent" />
 
     <TextView
         android:textColor="@color/colorTextButton"
         android:gravity="center"
         android:textSize="28sp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="15dp"
         android:layout_width="260dp"
         android:layout_height="wrap_content"
         android:text="Tell us more about your event."
         />
 
-    <android.support.design.widget.TextInputLayout
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/event_details_tilEventName"
         android:background="@drawable/round_corner_border"
         android:padding="10dp"
@@ -38,28 +35,28 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <android.support.design.widget.TextInputEditText
-            android:hint="Name of the Event"
+        <com.google.android.material.textfield.TextInputEditText
+            android:hint="Event Title"
             android:background="@android:color/transparent"
-            android:maxLines="1"
-            android:minLines="1"
+            android:inputType="text"
             android:maxLength="50"
+            android:padding="10dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
-    </android.support.design.widget.TextInputLayout>
+    </com.google.android.material.textfield.TextInputLayout>
 
 
-    <android.support.design.widget.TextInputLayout
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/event_details_tilEventDescription"
         android:background="@drawable/round_corner_border"
-        android:padding="10dp"
+        android:padding="8dp"
         android:layout_marginTop="20dp"
         android:layout_marginLeft="25dp"
         android:layout_marginRight="25dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <android.support.design.widget.TextInputEditText
+        <com.google.android.material.textfield.TextInputEditText
             android:hint="Event Description"
             android:gravity="top"
             android:background="@android:color/transparent"
@@ -68,29 +65,17 @@
             android:maxLength="300"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
-    </android.support.design.widget.TextInputLayout>
-
-
-    <ImageView
-        android:id="@+id/event_details_ivPoster"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="15dp"
-        android:src="@color/colorPrimaryLight"
-        android:layout_gravity="center_horizontal"
-        android:layout_width="180dp"
-        android:layout_height="210dp" />
-    <View
-        android:layout_width="match_parent"
-        android:layout_weight="1"
-        android:layout_height="0dp" />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <Button
         android:id="@+id/event_details_btnNext"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center_horizontal"
         android:text="Next"
         android:textColor="#fff"
         android:textSize="18sp"
         android:background="@color/colorAccent"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
 </LinearLayout>
