@@ -7,10 +7,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import za.co.whatsyourvibe.business.R;
 import za.co.whatsyourvibe.business.activities.event.EventOverviewActivity;
 import za.co.whatsyourvibe.business.models.MyEvent;
@@ -42,6 +46,13 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.MyViewHold
         myViewHolder.going.setText(eventsList.get(position).getGoing() + " going");
         myViewHolder.description.setText(eventsList.get(position).getDescription());
 
+        String url = eventsList.get(position).getPoster();
+        Picasso.get()
+                .load(url)
+                .placeholder(R.drawable.logo)
+                .error(R.drawable.logo)
+                .into(myViewHolder.poster);
+
         myViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -63,6 +74,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.MyViewHold
     public static class MyViewHolder extends RecyclerView.ViewHolder {
 
         TextView event, date, shares ,going , description;
+        CircleImageView poster;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -72,6 +84,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.MyViewHold
             shares = itemView.findViewById(R.id.item_event_tvEventShares);
             going = itemView.findViewById(R.id.item_event_tvEventGoing);
             description = itemView.findViewById(R.id.item_event_tvEventDescription);
+            poster = itemView.findViewById(R.id.item_event_ivPoster);
 
         }
     }

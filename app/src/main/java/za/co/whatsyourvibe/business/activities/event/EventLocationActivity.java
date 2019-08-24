@@ -60,38 +60,8 @@ public class EventLocationActivity extends AppCompatActivity  implements DatePic
         mEventLocation = findViewById(R.id.event_location_tilEventLocation);
         mEventDate = findViewById(R.id.event_location_tilEventDate);
 
-        mEventDate.getEditText().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setEventDate();
-            }
-        });
-
-        mEventDate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setEventDate();
-            }
-        });
         mEventTime = findViewById(R.id.event_location_tilEventTime);
 
-        mEventTime.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                setEventTime();
-
-            }
-        });
-
-        mEventTime.getEditText().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                setEventTime();
-
-            }
-        });
 
         Button btnNext = findViewById(R.id.event_location_btnNext);
 
@@ -224,6 +194,17 @@ public class EventLocationActivity extends AppCompatActivity  implements DatePic
         //String time =  DateFormat.getDateInstance(DateFormat.FULL).format(c.getTime());
 
         mEventTime.getEditText().setText(hourOfDay + " : " + minute);
+
+    }
+
+    public void selectTime(View view) {
+
+        setEventTime();
+    }
+
+    public void selectDate(View view) {
+
+        setEventDate();
 
     }
 }

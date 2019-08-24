@@ -96,7 +96,7 @@
                     android:id="@+id/membership_btnChangeMembership"
                     android:background="@color/colorPrimary"
                     android:textColor="#FFF"
-                    android:text="View Membership"
+                    android:text="Trial"
                     android:layout_margin="10dp"
                     android:layout_width="0dp"
                     android:layout_weight="1"

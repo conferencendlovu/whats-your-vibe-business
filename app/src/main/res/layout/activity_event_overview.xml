@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".activities.event.EventOverviewActivity">
 
     <include
@@ -12,79 +13,47 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <ImageView
-        android:id="@+id/event_overview_ivCoverImage"
-        android:src="@drawable/event_bg_default"
-        android:layout_below="@id/event_overview_toolbar"
+    <RelativeLayout
+        android:id="@+id/event_overview_sliderLayout"
         android:layout_width="match_parent"
-        android:scaleType="fitXY"
-        android:layout_height="200dp" />
+        android:layout_height="300dp" >
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/event_overview_viewPager"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </androidx.viewpager.widget.ViewPager>
+
+        <com.viewpagerindicator.CirclePageIndicator
+            android:id="@+id/event_overview_indicator"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:gravity="bottom"
+            android:padding="10dp"
+            app:centered="true"
+            app:fillColor="#df0623"
+            app:pageColor="#fff"
+            app:snap="false" />
+
+    </RelativeLayout>
 
     <TextView
         android:id="@+id/event_overview_tvEventName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@id/event_overview_ivCoverImage"
         android:layout_gravity="center_vertical"
-        android:layout_marginBottom="-179dp"
-        android:layout_marginStart="15dp"
         android:gravity="center_vertical"
         android:textAllCaps="true"
-        android:text="MY EVENT NAME GOES HERE"
         android:textColor="#fff"
         android:textSize="18sp" />
-
-
-    <androidx.cardview.widget.CardView
-        android:layout_below="@id/event_overview_ivCoverImage"
-        android:id="@+id/event_overview_cvCardView1"
-        app:cardCornerRadius="5dp"
-        app:cardElevation="5dp"
-        android:layout_margin="15dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:orientation="horizontal"
-            android:gravity="end"
-            android:layout_height="wrap_content">
-
-            <ImageView
-                android:id="@+id/event_overview_btnSave"
-                android:layout_margin="5dp"
-                android:src="@drawable/icon_save"
-                android:visibility="gone"
-                android:padding="5dp"
-                android:layout_width="50dp"
-                android:layout_height="50dp" />
-
-            <ImageView
-                android:id="@+id/event_overview_btnEdit"
-                android:layout_margin="5dp"
-                android:src="@drawable/icon_edit"
-                android:padding="5dp"
-                android:layout_width="50dp"
-                android:layout_height="50dp" />
-
-            <ImageView
-                android:id="@+id/event_overview_btnCancel"
-                android:layout_margin="5dp"
-                android:padding="5dp"
-                android:src="@drawable/icon_delete"
-                android:layout_width="50dp"
-                android:layout_height="50dp" />
-
-        </LinearLayout>
-
-
-    </androidx.cardview.widget.CardView>
 
     <LinearLayout
         android:id="@+id/event_overview_cvLinearLayout1"
         android:layout_margin="10dp"
         android:padding="10dp"
-        android:layout_below="@id/event_overview_cvCardView1"
         android:background="#fff"
         android:orientation="horizontal"
         android:layout_width="match_parent"
@@ -124,7 +93,6 @@
         android:id="@+id/event_overview_etEventDescription"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
-        android:layout_below="@id/event_overview_cvLinearLayout1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -135,9 +103,44 @@
             android:minLines="3"
             android:maxLines="3"
             android:maxLength="300"
-            android:gravity="top"
-            android:hint="Event Description" />
+            android:gravity="top" />
     </com.google.android.material.textfield.TextInputLayout>
 
+    <Button
+        android:visibility="gone"
+        android:id="@+id/event_overview_btnSave"
+        android:background="@drawable/primary_button_background"
+        android:textColor="@color/colorWhite"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/update_event"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
-</RelativeLayout>
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_gravity="end"
+        android:padding="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginEnd="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/event_overview_btnEdit"
+           android:src="@drawable/icon_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/event_overview_btnCancel"
+            android:layout_marginTop="5dp"
+            android:src="@drawable/icon_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

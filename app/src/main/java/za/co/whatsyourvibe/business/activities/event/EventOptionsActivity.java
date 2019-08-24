@@ -9,6 +9,7 @@ import com.google.android.material.textfield.TextInputLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -20,8 +21,14 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+
+import java.util.Calendar;
 
 import dmax.dialog.SpotsDialog;
 import io.github.inflationx.viewpump.ViewPumpContextWrapper;
@@ -30,11 +37,22 @@ import za.co.whatsyourvibe.business.R;
 public class EventOptionsActivity extends AppCompatActivity {
 
     private TextInputLayout tilEventFee;
+
     private RadioGroup rbgEventPrivacy;
+
     private double dblEventFee;
+
     private boolean isEventPaid;
+
     private String mEventPrivacy;
 
+    private String businessId, displayName;
+
+    private StorageReference mStorageReference;
+
+    private Uri mImageUri1, mImageUri2,mImageUri3;
+
+    private AlertDialog dialog;
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -47,6 +65,20 @@ public class EventOptionsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_event_options);
 
         Toolbar toolbar = findViewById(R.id.event_options_toolbar);
+
+        dialog = new SpotsDialog.Builder().setContext(EventOptionsActivity.this).build();
+
+        dialog.setMessage("Please wait, creating your event...");
+        dialog.setCancelable(false);
+        dialog.setCanceledOnTouchOutside(false);
+
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+
+        mStorageReference = FirebaseStorage.getInstance().getReference("event_photos");
+
+        businessId = auth.getUid();
+
+        displayName = auth.getCurrentUser().getDisplayName();
 
         setSupportActionBar(toolbar);
 
@@ -74,11 +106,11 @@ public class EventOptionsActivity extends AppCompatActivity {
 
                     dblEventFee =
                             Double.parseDouble(tilEventFee.getEditText().getText().toString().trim());
-                    createEvent();
+                    uploadImage();
 
                 }else{
                     dblEventFee = 0.00;
-                    createEvent();
+                    uploadImage();
                 }
 
                 if (rbgEventPrivacy.getCheckedRadioButtonId() == -1){
@@ -107,40 +139,196 @@ public class EventOptionsActivity extends AppCompatActivity {
         });
     }
 
-    private void createEvent() {
+    private void uploadImage() {
 
-        final AlertDialog dialog = new SpotsDialog.Builder().setContext(EventOptionsActivity.this).build();
+        dialog.setMessage("Uploading Image 1");
 
-        dialog.setMessage("Please wait, creating your event...");
-        dialog.setCancelable(false);
-        dialog.setCanceledOnTouchOutside(false);
         dialog.show();
 
+        final StorageReference fileReference =
+                mStorageReference.child(businessId + Calendar.getInstance().getTimeInMillis());
+
+        mImageUri1 = Uri.parse(EventCategory.myEvent.getImage1());
+
+        UploadTask uploadTask = fileReference.putFile(mImageUri1);
+
+        uploadTask.addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+
+                Toast.makeText(EventOptionsActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+
+            }
+        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+                fileReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+
+                        mImageUri1 = uri;
+
+                        uploadImage2();
+
+//                        dialog.setMessage("Creating your event...");
+//
+//                        createEvent();
+
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+
+                        dialog.dismiss();
+
+                        Toast.makeText(EventOptionsActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+
+                    }
+                });
+
+            }
+        });
+
+    }
+
+    private void uploadImage2() {
+
+        dialog.setMessage("Uploading Image 2");
+
+        dialog.show();
+
+        final StorageReference fileReference =
+                mStorageReference.child(businessId + Calendar.getInstance().getTimeInMillis());
+
+        mImageUri2 = Uri.parse(EventCategory.myEvent.getImage2());
+
+        UploadTask uploadTask = fileReference.putFile(mImageUri2);
+
+        uploadTask.addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+
+                Toast.makeText(EventOptionsActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+
+            }
+        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+                fileReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+
+                        mImageUri2 = uri;
+
+                        uploadImage3();
+
+//                        dialog.setMessage("Creating your event...");
+//
+//                        createEvent();
+
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+
+                        dialog.dismiss();
+
+                        Toast.makeText(EventOptionsActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+
+                    }
+                });
+
+            }
+        });
+
+    }
+
+    private void uploadImage3() {
+
+        dialog.setMessage("Uploading Image 3");
+
+        dialog.show();
+
+        final StorageReference fileReference =
+                mStorageReference.child(businessId + Calendar.getInstance().getTimeInMillis());
+
+        mImageUri3 = Uri.parse(EventCategory.myEvent.getImage3());
+
+        UploadTask uploadTask = fileReference.putFile(mImageUri3);
+
+        uploadTask.addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+
+                Toast.makeText(EventOptionsActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+
+            }
+        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+                fileReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+
+                        mImageUri3 = uri;
+
+                       // uploadImage2();
+
+                        dialog.setMessage("Creating your event...");
+
+                        createEvent();
+
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+
+                        dialog.dismiss();
+
+                        Toast.makeText(EventOptionsActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+
+                    }
+                });
+
+            }
+        });
+    }
+
+    private void createEvent() {
+
         int id = rbgEventPrivacy.getCheckedRadioButtonId();
-        String privacy = "";
 
         if(id == R.id.event_options_rbPublic){
-            privacy = "PUBLIC";
+            mEventPrivacy = "PUBLIC";
         } else if(id == R.id.event_options_rbPrivate){
-           privacy = "PRIVATE";
+            mEventPrivacy = "PRIVATE";
         }
 
-        SharedPreferences sharedPreferences = getSharedPreferences("WYV", MODE_PRIVATE);
+        FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
 
-        String creatorUid = sharedPreferences.getString("uid","12345");
-        String displayName = sharedPreferences.getString("displayName","Guest");
+        DocumentReference doc = firebaseFirestore.collection("events").document();
+
+        String eventId = doc.getId();
+
+        EventCategory.myEvent.setId(eventId);
 
         EventCategory.myEvent.setEventEntryFee(dblEventFee);
-        EventCategory.myEvent.setEventPrivacy(privacy);
+        EventCategory.myEvent.setEventPrivacy(mEventPrivacy);
         EventCategory.myEvent.setCreatorDisplayName(displayName);
-        EventCategory.myEvent.setCreatorUid(creatorUid);
+        EventCategory.myEvent.setCreatorUid(businessId);
+        EventCategory.myEvent.setImage1(mImageUri1.toString());
+        EventCategory.myEvent.setImage2(mImageUri2.toString());
+        EventCategory.myEvent.setImage3(mImageUri3.toString());
 
-        FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
         firebaseFirestore.collection("events")
-                .add(EventCategory.myEvent)
-                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                .document(eventId)
+                .set(EventCategory.myEvent)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
-                    public void onSuccess(DocumentReference documentReference) {
+                    public void onSuccess(Void aVoid) {
                         dialog.dismiss();
                         Intent i = new Intent(EventOptionsActivity.this,
                                 EventCreationSuccessActivity.class);
@@ -149,13 +337,14 @@ public class EventOptionsActivity extends AppCompatActivity {
                         startActivity(i);
                         finish();
                     }
-                }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                dialog.dismiss();
-                Toast.makeText(EventOptionsActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        dialog.dismiss();
+                        Toast.makeText(EventOptionsActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
 
     }
 }

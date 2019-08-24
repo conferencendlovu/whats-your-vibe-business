@@ -68,44 +68,77 @@
             android:layout_height="match_parent" />
     </com.google.android.material.textfield.TextInputLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/event_location_tilEventTime"
-        android:background="@drawable/round_corner_border"
-        android:padding="10dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="25dp"
-        android:layout_marginRight="25dp"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/event_location_tilEventTime"
+            android:background="@drawable/round_corner_border"
+            android:padding="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="5dp"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:hint="Time"
+                android:background="@android:color/transparent"
+                android:padding="5dp"
+                android:inputType="time"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:text="Select Time"
+            android:background="@drawable/round_corner_border"
+            android:onClick="selectTime"
+            android:layout_gravity="center_vertical"
+            android:textSize="13sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:hint="Time"
-            android:background="@android:color/transparent"
-            android:padding="5dp"
-            android:inputType="time"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/event_location_tilEventDate"
+            android:background="@drawable/round_corner_border"
+            android:padding="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="25dp"
+            android:layout_marginEnd="5dp"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/event_location_tilEventDate"
-        android:background="@drawable/round_corner_border"
-        android:padding="10dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="25dp"
-        android:layout_marginRight="25dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+            <com.google.android.material.textfield.TextInputEditText
+                android:hint="Date of Event"
+                android:padding="5dp"
+                android:background="@android:color/transparent"
+                android:inputType="date"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:hint="Date of Event"
-            android:padding="5dp"
-            android:background="@android:color/transparent"
-            android:inputType="date"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </com.google.android.material.textfield.TextInputLayout>
+        <Button
+            android:background="@drawable/round_corner_border"
+            android:onClick="selectDate"
+            android:text="Select Date"
+            android:layout_gravity="center_vertical"
+            android:textSize="13sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+
 
     <Button
         android:id="@+id/event_location_btnNext"

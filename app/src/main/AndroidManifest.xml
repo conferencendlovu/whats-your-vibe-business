@@ -5,6 +5,7 @@
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
@@ -15,21 +16,30 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+
+        <activity android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
+            android:theme="@style/Base.Theme.AppCompat"/>
+
         <activity android:name=".activities.event.EventOverviewActivity" android:parentActivityName=".MainActivity" android:windowSoftInputMode="stateHidden"/>
         <activity
             android:name=".activities.event.EventOptionsActivity"
+            android:parentActivityName=".activities.event.EventOptionsActivity"
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".activities.event.EventRestrictionsActivity"
+            android:parentActivityName=".activities.event.EventLocationActivity"
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".activities.event.EventLocationActivity"
+            android:parentActivityName=".activities.event.EventDetailsActivity"
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".activities.event.EventDetailsActivity"
+            android:parentActivityName=".activities.event.EventCategory"
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".activities.event.EventCategory"
+            android:parentActivityName=".MainActivity"
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".activities.profile.MembershipActivity"

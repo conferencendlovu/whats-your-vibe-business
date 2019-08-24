@@ -5,25 +5,51 @@ import java.io.Serializable;
 public class MyEvent  implements Serializable {
 
     private String id;
+
     private String name;
+
     private String category;
+
     private String description;
+
     private String location;
+
     private double latitude;
+
     private double longitude;
+
     private String poster;
+
+    private String image1;
+
+    private String image2;
+
+    private String image3;
+
     private String time;
+
     private String date;
+
     private String ageRestricted;
-    private boolean smokingAllowed;
-    private boolean childrenAllowed;
-    private boolean alcoholAllowed;
+
+    private String smoking;
+
+    private String children;
+
+    private String alcohol;
+
     private boolean isPaidEvent;
+
     private double eventEntryFee;
+
     private String eventPrivacy;
+
     private String creatorUid;
+
     private String creatorDisplayName;
+
     private int going;
+
     private int shares;
 
     public MyEvent() {
@@ -110,29 +136,6 @@ public class MyEvent  implements Serializable {
         this.ageRestricted = ageRestricted;
     }
 
-    public boolean isSmokingAllowed() {
-        return smokingAllowed;
-    }
-
-    public void setSmokingAllowed(boolean smokingAllowed) {
-        this.smokingAllowed = smokingAllowed;
-    }
-
-    public boolean isChildrenAllowed() {
-        return childrenAllowed;
-    }
-
-    public void setChildrenAllowed(boolean childrenAllowed) {
-        this.childrenAllowed = childrenAllowed;
-    }
-
-    public boolean isAlcoholAllowed() {
-        return alcoholAllowed;
-    }
-
-    public void setAlcoholAllowed(boolean alcoholAllowed) {
-        this.alcoholAllowed = alcoholAllowed;
-    }
 
     public boolean isPaidEvent() {
         return isPaidEvent;
@@ -196,5 +199,53 @@ public class MyEvent  implements Serializable {
 
     public void setShares(int shares) {
         this.shares = shares;
+    }
+
+    public String getImage1() {
+        return image1;
+    }
+
+    public void setImage1(String image1) {
+        this.image1 = image1;
+    }
+
+    public String getImage2() {
+        return image2;
+    }
+
+    public void setImage2(String image2) {
+        this.image2 = image2;
+    }
+
+    public String getImage3() {
+        return image3;
+    }
+
+    public void setImage3(String image3) {
+        this.image3 = image3;
+    }
+
+    public String getSmoking() {
+        return smoking;
+    }
+
+    public void setSmoking(String smoking) {
+        this.smoking = smoking;
+    }
+
+    public String getChildren() {
+        return children;
+    }
+
+    public void setChildren(String children) {
+        this.children = children;
+    }
+
+    public String getAlcohol() {
+        return alcohol;
+    }
+
+    public void setAlcohol(String alcohol) {
+        this.alcohol = alcohol;
     }
 }

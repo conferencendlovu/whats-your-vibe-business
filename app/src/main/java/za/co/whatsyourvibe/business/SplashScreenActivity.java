@@ -9,6 +9,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 
 import io.github.inflationx.calligraphy3.CalligraphyConfig;
@@ -34,8 +35,12 @@ public class SplashScreenActivity extends AppCompatActivity {
                               .build());
         ImageView logo = findViewById(R.id.splash_screen_ivLogo);
 
-        Animation animation = AnimationUtils.loadAnimation(this,R.anim.animation);
-        logo.startAnimation(animation);
+        Glide.with(this)
+                .load(R.raw.v)
+                .into(logo);
+
+     //   Animation animation = AnimationUtils.loadAnimation(this,R.anim.animation);
+     //   logo.startAnimation(animation);
 
         new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
             @Override

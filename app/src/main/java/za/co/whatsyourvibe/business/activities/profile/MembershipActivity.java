@@ -262,6 +262,8 @@ public class MembershipActivity extends AppCompatActivity {
 
                                 mTilMembership.getEditText().setText(business.getMembershipType());
 
+                                mTilBusinessLocation.getEditText().setText(business.getBusinessAddress());
+
                                 if (business.getBusinessLogo() !=null) {
 
                                     Picasso.get()

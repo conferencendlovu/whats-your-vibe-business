@@ -23,11 +23,15 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.annotation.Nullable;
 
 import io.github.inflationx.viewpump.ViewPumpContextWrapper;
 
@@ -144,40 +148,56 @@ public class MainActivity extends AppCompatActivity {
         FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
         firebaseFirestore.collection("events")
                 .whereEqualTo("creatorUid",businessId)
-                .get()
-                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
-                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                    public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+
+                        if (e != null) {
+
+                            mMessage.setText(e.getMessage());
+
+                            mMessage.setVisibility(View.VISIBLE);
+
+                            mProgressBar.setVisibility(View.GONE);
+
+                            return;
+                        }
+
                         mProgressBar.setVisibility(View.GONE);
 
                         if (queryDocumentSnapshots.isEmpty()) {
                             mMessage.setText("You do not have any events created. Tap create " +
-                                                     "event button bottom right of your screen");
+                                    "event button bottom right of your screen");
+
                             mMessage.setVisibility(View.VISIBLE);
+
                             mProgressBar.setVisibility(View.GONE);
+
                             mRecyclerView.setVisibility(View.GONE);
+
                         }else{
+
                             List<MyEvent> myEventList = new ArrayList<>();
 
                             for (DocumentSnapshot doc: queryDocumentSnapshots){
-                                MyEvent myEvent = doc.toObject(MyEvent.class);
-                                myEventList.add(myEvent);
+
+                               // MyEvent myEvent = doc.toObject(MyEvent.class);
+
+                                MyEvent myEvent1 = doc.toObject(MyEvent.class);
+
+                                myEventList.add(myEvent1);
+
                             }
 
                             mAdapter = new EventsAdapter(myEventList,getApplicationContext());
+
                             mRecyclerView.setAdapter(mAdapter);
+
                             mAdapter.notifyDataSetChanged();
+
                             mRecyclerView.setVisibility(View.VISIBLE);
                         }
 
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        mMessage.setText(e.getMessage());
-                        mMessage.setVisibility(View.VISIBLE);
-                        mProgressBar.setVisibility(View.GONE);
                     }
                 });
     }

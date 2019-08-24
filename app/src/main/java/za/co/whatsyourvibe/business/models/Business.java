@@ -15,7 +15,7 @@ public class Business {
 
     private String membershipId;
 
-    private String byusinessAddress;
+    private String businessAddress;
 
     private String businessLogo;
 
@@ -78,12 +78,12 @@ public class Business {
         this.benefits = benefits;
     }
 
-    public String getByusinessAddress() {
-        return byusinessAddress;
+    public String getBusinessAddress() {
+        return businessAddress;
     }
 
-    public void setByusinessAddress(String byusinessAddress) {
-        this.byusinessAddress = byusinessAddress;
+    public void setBusinessAddress(String businessAddress) {
+        this.businessAddress = businessAddress;
     }
 
     public String getBusinessLogo() {

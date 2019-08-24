@@ -14,68 +14,162 @@
         android:layout_height="wrap_content"
         android:layout_width="match_parent" />
 
-    <TextView
-        android:textColor="@color/colorTextButton"
-        android:gravity="center"
-        android:textSize="28sp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="15dp"
-        android:layout_width="260dp"
-        android:layout_height="wrap_content"
-        android:text="Tell us more about your event."
-        />
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/event_details_tilEventName"
-        android:background="@drawable/round_corner_border"
-        android:padding="10dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="25dp"
-        android:layout_marginRight="25dp"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:hint="Event Title"
-            android:background="@android:color/transparent"
-            android:inputType="text"
-            android:maxLength="50"
-            android:padding="10dp"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:orientation="vertical"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:textColor="@color/colorTextButton"
+                android:gravity="center"
+                android:textSize="28sp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="15dp"
+                android:layout_width="260dp"
+                android:layout_height="wrap_content"
+                android:text="Tell us more about your event."
+                />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/event_details_tilEventName"
+                android:background="@drawable/round_corner_border"
+                android:padding="10dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="25dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:hint="Event Title"
+                    android:background="@android:color/transparent"
+                    android:inputType="text"
+                    android:maxLength="50"
+                    android:padding="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </com.google.android.material.textfield.TextInputLayout>
 
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/event_details_tilEventDescription"
-        android:background="@drawable/round_corner_border"
-        android:padding="8dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="25dp"
-        android:layout_marginRight="25dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/event_details_tilEventDescription"
+                android:background="@drawable/round_corner_border"
+                android:padding="8dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="25dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:hint="Event Description"
-            android:gravity="top"
-            android:background="@android:color/transparent"
-            android:maxLines="4"
-            android:minLines="4"
-            android:maxLength="300"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:hint="Event Description"
+                    android:gravity="top"
+                    android:background="@android:color/transparent"
+                    android:maxLines="4"
+                    android:minLines="4"
+                    android:maxLength="300"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-    <Button
-        android:id="@+id/event_details_btnNext"
-        android:layout_marginTop="10dp"
-        android:layout_gravity="center_horizontal"
-        android:text="Next"
-        android:textColor="#fff"
-        android:textSize="18sp"
-        android:background="@color/colorAccent"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+            <LinearLayout
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+                android:gravity="center_horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <RelativeLayout
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="120dp"
+                    android:layout_height="70dp">
+
+                    <ProgressBar
+                        android:visibility="gone"
+                        android:id="@+id/event_details_loadingImageProgressBar1"
+                        android:layout_centerInParent="true"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp" />
+
+                    <ImageView
+                        android:id="@+id/event_details_ivEventImage1"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/upload_image"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_marginTop="10dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="120dp"
+                    android:layout_height="70dp">
+
+                    <ProgressBar
+                        android:visibility="gone"
+                        android:id="@+id/event_details_loadingImageProgressBar2"
+                        android:layout_centerInParent="true"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp" />
+
+                    <ImageView
+                        android:scaleType="fitXY"
+                        android:id="@+id/event_details_ivEventImage2"
+                        android:src="@drawable/upload_image"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="120dp"
+                    android:layout_height="70dp">
+
+                    <ProgressBar
+                        android:visibility="gone"
+                        android:id="@+id/event_details_loadingImageProgressBar3"
+                        android:layout_centerInParent="true"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp" />
+
+                    <ImageView
+                        android:scaleType="fitXY"
+                        android:id="@+id/event_details_ivEventImage3"
+                        android:src="@drawable/upload_image"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/event_details_btnNext"
+                android:layout_marginTop="10dp"
+                android:layout_gravity="center_horizontal"
+                android:text="Next"
+                android:textColor="#fff"
+                android:textSize="18sp"
+                android:background="@color/colorAccent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+    </ScrollView>
 
 </LinearLayout>

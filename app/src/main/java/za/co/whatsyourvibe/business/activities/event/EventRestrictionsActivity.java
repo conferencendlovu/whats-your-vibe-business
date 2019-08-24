@@ -54,9 +54,25 @@ public class EventRestrictionsActivity extends AppCompatActivity {
     }
 
     private void nextScreen() {
-        EventCategory.myEvent.setSmokingAllowed(smoking.isChecked());
-        EventCategory.myEvent.setAlcoholAllowed(alcohol.isChecked());
-        EventCategory.myEvent.setChildrenAllowed(children.isChecked());
+
+        if (smoking.isChecked()) {
+            EventCategory.myEvent.setSmoking("Smoking Allowed");
+        }else{
+            EventCategory.myEvent.setSmoking("Smoking Not Allowed");
+        }
+
+        if (smoking.isChecked()) {
+            EventCategory.myEvent.setAlcohol("Alcohol Allowed");
+        }else{
+            EventCategory.myEvent.setAlcohol("Alcohol Not Allowed");
+        }
+
+        if (smoking.isChecked()) {
+            EventCategory.myEvent.setChildren("Children Allowed");
+        }else{
+            EventCategory.myEvent.setChildren("Children Not Allowed");
+        }
+
 
         Intent i = new Intent(EventRestrictionsActivity.this,EventOptionsActivity.class);
         startActivity(i);
