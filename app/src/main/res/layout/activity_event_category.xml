@@ -25,305 +25,32 @@
         android:text="What type of event you want to create?"
         />
 
-    <ScrollView
+    <ProgressBar
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="15dp"
-        android:layout_width="match_parent"
-        android:layout_weight="1"
-        android:layout_height="0dp">
+        android:layout_marginTop="50dp"
+        android:id="@+id/event_category_progressBar"
+        android:layout_width="40dp"
+        android:layout_height="40dp" />
 
-        <LinearLayout
-            android:layout_gravity="center_horizontal"
-            android:gravity="center_horizontal"
-            android:layout_width="wrap_content"
-            android:orientation="vertical"
-            android:layout_height="wrap_content">
-
-            <LinearLayout
-                android:id="@+id/event_category_llGala"
-                android:background="@drawable/round_corner_border"
-                android:layout_margin="15dp"
-                android:paddingLeft="8dp"
-                android:paddingRight="8dp"
-                android:layout_width="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:layout_height="wrap_content"
-                android:paddingStart="8dp">
-
-                <TextView
-                    android:layout_margin="10dp"
-                    android:textSize="18sp"
-                    android:textColor="@color/colorTextButton"
-                    android:text="GALAS"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-                <ImageView
-                    android:visibility="gone"
-                    android:id="@+id/event_category_ivGala"
-                    android:tint="@color/colorTextButton"
-                    android:src="@drawable/checked"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp" />
-
-            </LinearLayout>
-            <LinearLayout
-                android:id="@+id/event_category_llConferences"
-                android:background="@drawable/round_corner_border"
-                android:layout_margin="15dp"
-                android:paddingLeft="8dp"
-                android:paddingRight="8dp"
-                android:layout_width="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:layout_height="wrap_content"
-                android:paddingStart="8dp">
-
-                <TextView
-                    android:layout_margin="10dp"
-                    android:textSize="18sp"
-                    android:textColor="@color/colorTextButton"
-                    android:text="CONFERENCES"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-                <ImageView
-                    android:visibility="gone"
-                    android:id="@+id/event_category_ivConferences"
-                    android:tint="@color/colorTextButton"
-                    android:src="@drawable/checked"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp" />
-
-            </LinearLayout>
-            <LinearLayout
-                android:id="@+id/event_category_llAwardsShows"
-                android:background="@drawable/round_corner_border"
-                android:layout_margin="15dp"
-                android:paddingLeft="8dp"
-                android:paddingRight="8dp"
-                android:layout_width="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:layout_height="wrap_content"
-                android:paddingStart="8dp">
-
-                <TextView
-                    android:layout_margin="10dp"
-                    android:textSize="18sp"
-                    android:textColor="@color/colorTextButton"
-                    android:text="AWARD SHOWS"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-                <ImageView
-                    android:visibility="gone"
-                    android:id="@+id/event_category_ivAwardsShows"
-                    android:tint="#fff"
-                    android:src="@drawable/checked"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp" />
-
-            </LinearLayout>
-            <LinearLayout
-                android:id="@+id/event_category_llNightClubs"
-                android:background="@drawable/round_corner_border"
-                android:layout_margin="15dp"
-                android:paddingLeft="8dp"
-                android:paddingRight="8dp"
-                android:layout_width="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:layout_height="wrap_content"
-                android:paddingStart="8dp">
-
-                <TextView
-                    android:layout_margin="10dp"
-                    android:textSize="18sp"
-                    android:textColor="@color/colorTextButton"
-                    android:text="NIGHT CLUBS"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-                <ImageView
-                    android:visibility="gone"
-                    android:id="@+id/event_category_ivNightClubs"
-                    android:tint="@color/colorTextButton"
-                    android:src="@drawable/checked"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp" />
-
-            </LinearLayout>
-            <LinearLayout
-                android:id="@+id/event_category_llRestaurants"
-                android:background="@drawable/round_corner_border"
-                android:layout_margin="15dp"
-                android:paddingLeft="8dp"
-                android:paddingRight="8dp"
-                android:layout_width="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:layout_height="wrap_content"
-                android:paddingStart="8dp">
-
-                <TextView
-                    android:layout_margin="10dp"
-                    android:textSize="18sp"
-                    android:textColor="@color/colorTextButton"
-                    android:text="RESTAURANTS"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-
-                <ImageView
-                    android:visibility="gone"
-                    android:id="@+id/event_category_ivRestaurants"
-                    android:tint="@color/colorTextButton"
-                    android:src="@drawable/checked"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp" />
-
-            </LinearLayout>
-            <LinearLayout
-                android:id="@+id/event_category_llFashionShows"
-                android:background="@drawable/round_corner_border"
-                android:layout_margin="15dp"
-                android:paddingLeft="8dp"
-                android:paddingRight="8dp"
-                android:layout_width="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:layout_height="wrap_content"
-                android:paddingStart="8dp">
-
-                <TextView
-                    android:layout_margin="10dp"
-                    android:textSize="18sp"
-                    android:textColor="@color/colorTextButton"
-                    android:text="FASHION SHOWS"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-                <ImageView
-                    android:visibility="gone"
-                    android:id="@+id/event_category_ivFashionShows"
-                    android:tint="@color/colorTextButton"
-                    android:src="@drawable/checked"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp" />
-
-            </LinearLayout>
-            <LinearLayout
-                android:id="@+id/event_category_llPicnics"
-                android:background="@drawable/round_corner_border"
-                android:layout_margin="15dp"
-                android:paddingLeft="8dp"
-                android:paddingRight="8dp"
-                android:layout_width="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:layout_height="wrap_content"
-                android:paddingStart="8dp">
-
-                <TextView
-                    android:layout_margin="10dp"
-                    android:textSize="18sp"
-                    android:textColor="@color/colorTextButton"
-                    android:text="PICNICS"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-                <ImageView
-                    android:visibility="gone"
-                    android:id="@+id/event_category_ivPicnics"
-                    android:tint="@color/colorTextButton"
-                    android:src="@drawable/checked"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp" />
-
-            </LinearLayout>
-            <LinearLayout
-                android:id="@+id/event_category_llTouristSites"
-                android:background="@drawable/round_corner_border"
-                android:layout_margin="15dp"
-                android:paddingLeft="8dp"
-                android:paddingRight="8dp"
-                android:layout_width="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:layout_height="wrap_content"
-                android:paddingStart="8dp">
-
-                <TextView
-                    android:layout_margin="10dp"
-                    android:textSize="18sp"
-                    android:textColor="@color/colorTextButton"
-                    android:text="TOURIST SITES"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-                <ImageView
-                    android:visibility="gone"
-                    android:id="@+id/event_category_ivTouristSites"
-                    android:tint="@color/colorTextButton"
-                    android:src="@drawable/checked"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp" />
-
-            </LinearLayout>
-            <LinearLayout
-                android:id="@+id/event_category_llConcerts"
-                android:background="@drawable/round_corner_border"
-                android:layout_margin="15dp"
-                android:paddingLeft="8dp"
-                android:paddingRight="8dp"
-                android:layout_width="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:layout_height="wrap_content"
-                android:paddingStart="8dp">
-
-                <TextView
-                    android:layout_margin="10dp"
-                    android:textSize="18sp"
-                    android:textColor="@color/colorTextButton"
-                    android:text="CONCERTS"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-                <ImageView
-                    android:visibility="gone"
-                    android:id="@+id/event_category_ivConcerts"
-                    android:tint="@color/colorTextButton"
-                    android:src="@drawable/checked"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp" />
-
-            </LinearLayout>
-
-        </LinearLayout>
-    </ScrollView>
     <TextView
-        android:layout_marginBottom="20dp"
-        android:text="Scroll down for more categories"
-        android:textStyle="italic"
-        android:textSize="12sp"
+        android:id="@+id/event_category_textView"
         android:textColor="@color/colorTextButton"
-        android:layout_gravity="center_horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
-    <Button
-        android:id="@+id/event_category_btnNext"
-        android:text="Next"
-        android:textColor="#fff"
-        android:textSize="18sp"
+        android:gravity="center"
+        android:textSize="28sp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="15dp"
-        android:layout_marginBottom="10dp"
-        android:background="@color/colorAccent"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_width="260dp"
+        android:layout_height="wrap_content"
+        android:text="Loading categories..."
+        />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:visibility="gone"
+        android:id="@+id/event_category_recyclerView"
+        android:layout_margin="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+
 
 </LinearLayout>

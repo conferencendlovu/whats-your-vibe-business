@@ -5,6 +5,7 @@
     <color name="colorAccent">#505659</color>
     <color name="colorPrimaryLight">#00fff2</color>
     <color name="colorGrey">#dddddd</color>
+    <color name="colorOverlay">#90000000</color>
     <color name="colorTextButton">#505659</color>
     <color name="colorIcons">#00ff97</color>
     <color name="colorWhite">#fff</color>

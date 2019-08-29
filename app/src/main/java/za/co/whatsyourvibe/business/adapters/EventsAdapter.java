@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -17,6 +18,7 @@ import java.util.List;
 import de.hdodenhof.circleimageview.CircleImageView;
 import za.co.whatsyourvibe.business.R;
 import za.co.whatsyourvibe.business.activities.event.EventOverviewActivity;
+import za.co.whatsyourvibe.business.activities.profile.MembershipActivity;
 import za.co.whatsyourvibe.business.models.MyEvent;
 
 public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.MyViewHolder>{
@@ -46,11 +48,12 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.MyViewHold
         myViewHolder.going.setText(eventsList.get(position).getGoing() + " going");
         myViewHolder.description.setText(eventsList.get(position).getDescription());
 
-        String url = eventsList.get(position).getPoster();
-        Picasso.get()
+        String url = eventsList.get(position).getImage1();
+        Glide
+                .with(context)
                 .load(url)
-                .placeholder(R.drawable.logo)
-                .error(R.drawable.logo)
+                .centerCrop()
+                .placeholder(R.drawable.spinner)
                 .into(myViewHolder.poster);
 
         myViewHolder.itemView.setOnClickListener(new View.OnClickListener() {

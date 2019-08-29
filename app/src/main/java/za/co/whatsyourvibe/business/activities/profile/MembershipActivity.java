@@ -8,6 +8,8 @@ import android.net.Uri;
 import android.os.Build;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
+import com.bumptech.glide.Glide;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputLayout;
 import androidx.appcompat.app.AppCompatActivity;
@@ -265,11 +267,11 @@ public class MembershipActivity extends AppCompatActivity {
                                 mTilBusinessLocation.getEditText().setText(business.getBusinessAddress());
 
                                 if (business.getBusinessLogo() !=null) {
-
-                                    Picasso.get()
+                                    Glide
+                                            .with(MembershipActivity.this)
                                             .load(business.getBusinessLogo())
-                                            .resize(150, 150)
                                             .centerCrop()
+                                            .placeholder(R.drawable.spinner)
                                             .into(ivBusinessLogo);
                                 }
 
