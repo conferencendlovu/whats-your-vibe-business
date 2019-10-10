@@ -61,11 +61,11 @@ public class EventCategory extends AppCompatActivity {
 
         setSupportActionBar(toolbar);
 
-        getSupportActionBar().setTitle("Create Event");
+        getSupportActionBar().setTitle("Create an Event");
 
         recyclerView = findViewById(R.id.event_category_recyclerView);
 
-        recyclerView.setLayoutManager(new GridLayoutManager(this,2));
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         textView = findViewById(R.id.event_category_textView);
 

@@ -3,30 +3,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_margin="5dp"
-    android:layout_width="180dp"
-    android:layout_height="150dp">
+    android:background="@android:color/transparent"
+    android:gravity="center_horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
-    <ImageView
-        android:id="@+id/item_category_category_photo"
-        android:layout_width="match_parent"
-        android:scaleType="centerCrop"
-        android:src="@drawable/event_bg_default"
-        android:layout_height="150dp" />
 
     <TextView
         android:id="@+id/item_category_category_title"
-        android:background="@color/colorOverlay"
+        android:padding="15dp"
         android:textSize="18sp"
-        fontPath="fonts/secondary_bold.ttf"
-        android:layout_alignParentBottom="true"
-        android:gravity="center_horizontal|bottom"
-        android:paddingBottom="10dp"
-        android:paddingTop="10dp"
-        android:text="TEST"
-        android:textColor="@color/colorWhite"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:ignore="MissingPrefix" />
+        android:gravity="center_horizontal"
+        android:background="@drawable/round_bg_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
 
 </RelativeLayout>

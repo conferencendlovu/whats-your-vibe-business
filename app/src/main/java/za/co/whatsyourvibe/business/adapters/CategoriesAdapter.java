@@ -23,13 +23,12 @@ import za.co.whatsyourvibe.business.models.MyEvent;
 public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.MyViewHolder> {
     private List<Category> categories;
     private Context context;
-    //public static MyEvent myEvent;
+
 
     public CategoriesAdapter(List<Category> categories, Context context) {
         this.context = context;
         this.categories = categories;
 
-      //  myEvent = new MyEvent();
     }
 
     @NonNull
@@ -45,13 +44,6 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.My
     public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, final int position) {
 
         myViewHolder.title.setText(categories.get(position).getTitle().toUpperCase());
-
-        Glide
-                .with(context)
-                .load(categories.get(position).getUrl())
-                .centerCrop()
-                .placeholder(R.drawable.event_bg_default)
-                .into(myViewHolder.photo);
 
         myViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,14 +67,12 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.My
     public static class MyViewHolder extends RecyclerView.ViewHolder {
 
         TextView title;
-        ImageView photo;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
             title = itemView.findViewById(R.id.item_category_category_title);
 
-            photo = itemView.findViewById(R.id.item_category_category_photo);
 
         }
     }
