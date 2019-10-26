@@ -22,18 +22,9 @@
         android:layout_marginTop="30dp"
         android:layout_width="260dp"
         android:layout_height="wrap_content"
-        android:text="Price and privacy options"
+        android:text="Privacy options"
         />
 
-
-    <Switch
-        android:textColor="@color/colorTextButton"
-        android:layout_marginLeft="25dp"
-        android:layout_marginTop="50dp"
-        android:id="@+id/event_options_swEventFee"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:text="This is a paid event" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/event_options_tilEventFee"

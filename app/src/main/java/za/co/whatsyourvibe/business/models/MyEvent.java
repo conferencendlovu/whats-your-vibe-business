@@ -38,6 +38,16 @@ public class MyEvent  implements Serializable {
 
     private String alcohol;
 
+    public String getMinAge() {
+        return minAge;
+    }
+
+    public void setMinAge(String minAge) {
+        this.minAge = minAge;
+    }
+
+    private String minAge;
+
     private boolean isPaidEvent;
 
     private double eventEntryFee;

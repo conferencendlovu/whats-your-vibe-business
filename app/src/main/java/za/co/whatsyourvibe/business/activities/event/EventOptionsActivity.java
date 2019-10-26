@@ -12,6 +12,7 @@ import androidx.appcompat.widget.Toolbar;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
@@ -35,6 +36,8 @@ import io.github.inflationx.viewpump.ViewPumpContextWrapper;
 import za.co.whatsyourvibe.business.R;
 
 public class EventOptionsActivity extends AppCompatActivity {
+
+    private static final String TAG = "EventOptionsActivity";
 
     private TextInputLayout tilEventFee;
 
@@ -86,7 +89,6 @@ public class EventOptionsActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        Switch swEventPaid = findViewById(R.id.event_options_swEventFee);
 
         tilEventFee = findViewById(R.id.event_options_tilEventFee);
         rbgEventPrivacy = findViewById(R.id.event_options_rbgPrivacy);
@@ -124,19 +126,6 @@ public class EventOptionsActivity extends AppCompatActivity {
             }
         });
 
-        swEventPaid.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked){
-                    tilEventFee.setVisibility(View.VISIBLE);
-                    isEventPaid = true;
-                }else{
-                    tilEventFee.setVisibility(View.GONE);
-                    dblEventFee = 0.00;
-                    isEventPaid = false;
-                }
-            }
-        });
     }
 
     private void uploadImage() {
@@ -156,7 +145,11 @@ public class EventOptionsActivity extends AppCompatActivity {
             @Override
             public void onFailure(@NonNull Exception e) {
 
+                dialog.dismiss();
+
                 Toast.makeText(EventOptionsActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+
+                Log.e(TAG, "onFailure: " +  e.getMessage());
 
             }
         }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -203,45 +196,57 @@ public class EventOptionsActivity extends AppCompatActivity {
 
         mImageUri2 = Uri.parse(EventCategory.myEvent.getImage2());
 
-        UploadTask uploadTask = fileReference.putFile(mImageUri2);
+        if (mImageUri2 == null || Uri.EMPTY.equals(mImageUri2)) {
 
-        uploadTask.addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
+            uploadImage3();
 
-                Toast.makeText(EventOptionsActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+        } else {
+            UploadTask uploadTask = fileReference.putFile(mImageUri2);
 
-            }
-        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+            uploadTask.addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
 
-                fileReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                    @Override
-                    public void onSuccess(Uri uri) {
+                    Log.e(TAG, "onFailure: " +  e.getMessage());
 
-                        mImageUri2 = uri;
+                    dialog.dismiss();
 
-                        uploadImage3();
+                    Toast.makeText(EventOptionsActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+
+                }
+            }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+                    fileReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+
+                            mImageUri2 = uri;
+
+                            uploadImage3();
 
 //                        dialog.setMessage("Creating your event...");
 //
 //                        createEvent();
 
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
 
-                        dialog.dismiss();
+                            dialog.dismiss();
 
-                        Toast.makeText(EventOptionsActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(EventOptionsActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
 
-                    }
-                });
+                        }
+                    });
 
-            }
-        });
+                }
+            });
+        }
+
+
 
     }
 
@@ -256,45 +261,56 @@ public class EventOptionsActivity extends AppCompatActivity {
 
         mImageUri3 = Uri.parse(EventCategory.myEvent.getImage3());
 
-        UploadTask uploadTask = fileReference.putFile(mImageUri3);
+        if (mImageUri3 == null || Uri.EMPTY.equals(mImageUri3)) {
 
-        uploadTask.addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
+            createEvent();
+        }else {
+            UploadTask uploadTask = fileReference.putFile(mImageUri3);
 
-                Toast.makeText(EventOptionsActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+            uploadTask.addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
 
-            }
-        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    Log.e(TAG, "onFailure: " +  e.getMessage());
 
-                fileReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                    @Override
-                    public void onSuccess(Uri uri) {
+                    dialog.dismiss();
 
-                        mImageUri3 = uri;
+                    Toast.makeText(EventOptionsActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
 
-                       // uploadImage2();
+                }
+            }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
-                        dialog.setMessage("Creating your event...");
+                    fileReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
 
-                        createEvent();
+                            mImageUri3 = uri;
 
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
+                            // uploadImage2();
 
-                        dialog.dismiss();
+                            dialog.setMessage("Creating your event...");
 
-                        Toast.makeText(EventOptionsActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                            createEvent();
 
-                    }
-                });
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
 
-            }
-        });
+                            dialog.dismiss();
+
+                            Toast.makeText(EventOptionsActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+
+                        }
+                    });
+
+                }
+            });
+        }
+
+
     }
 
     private void createEvent() {

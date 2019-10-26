@@ -8,7 +8,10 @@ import androidx.appcompat.widget.Toolbar;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.Switch;
+import android.widget.TextView;
 
 
 import io.github.inflationx.viewpump.ViewPumpContextWrapper;
@@ -19,7 +22,11 @@ public class EventRestrictionsActivity extends AppCompatActivity {
 
     private static final String TAG = "EventRestrictionsActivi";
 
-    private Switch smoking, children,alcohol;
+    private Switch smoking, age,alcohol;
+
+    private TextView tvMinAgeLabel;
+
+    private EditText etMinAge;
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -41,14 +48,43 @@ public class EventRestrictionsActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         smoking = findViewById(R.id.event_restrictions_swSmoking);
-        children = findViewById(R.id.event_restrictions_swChildren);
+
+        age = findViewById(R.id.event_restrictions_swAge);
+
+
         alcohol = findViewById(R.id.event_restrictions_swAlcohol);
+
+        tvMinAgeLabel = findViewById(R.id.event_restrictions_tvMinAgeLabel);
+
+        etMinAge = findViewById(R.id.event_restrictions_etMinAge);
 
         Button btnNext = findViewById(R.id.event_restrictions_btnNext);
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 nextScreen();
+            }
+        });
+
+        age.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+                if (isChecked) {
+
+                    tvMinAgeLabel.setVisibility(View.VISIBLE);
+
+                    etMinAge.setVisibility(View.VISIBLE);
+                }else {
+
+                    tvMinAgeLabel.setVisibility(View.GONE);
+
+                    etMinAge.setVisibility(View.GONE);
+
+                    etMinAge.setText("");
+
+                }
+
             }
         });
     }
@@ -61,16 +97,16 @@ public class EventRestrictionsActivity extends AppCompatActivity {
             EventCategory.myEvent.setSmoking("Smoking Not Allowed");
         }
 
-        if (smoking.isChecked()) {
+        if (alcohol.isChecked()) {
             EventCategory.myEvent.setAlcohol("Alcohol Allowed");
         }else{
             EventCategory.myEvent.setAlcohol("Alcohol Not Allowed");
         }
 
-        if (smoking.isChecked()) {
-            EventCategory.myEvent.setChildren("Children Allowed");
+        if (age.isChecked()) {
+            EventCategory.myEvent.setMinAge(etMinAge.getText()+"");
         }else{
-            EventCategory.myEvent.setChildren("Children Not Allowed");
+            EventCategory.myEvent.setMinAge("No age restrictions");
         }
 
 

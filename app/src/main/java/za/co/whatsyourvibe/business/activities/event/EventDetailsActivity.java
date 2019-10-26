@@ -42,6 +42,8 @@ public class EventDetailsActivity extends AppCompatActivity {
 
     private int selectedImage = 0;
 
+    private boolean isImageOneSelected = false;
+
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -181,6 +183,13 @@ public class EventDetailsActivity extends AppCompatActivity {
             return;
         }
 
+        if (!isImageOneSelected) {
+
+            Toast.makeText(this, "Please upload at least one image", Toast.LENGTH_SHORT).show();
+
+            return;
+        }
+
         String eventName = tilEventName.getEditText().getText().toString().trim().toUpperCase();
         String eventDescription = tilDescription.getEditText().getText().toString().trim();
 
@@ -277,6 +286,8 @@ public class EventDetailsActivity extends AppCompatActivity {
                     ivEventPoster1.setImageURI(result.getUri());
 
                     eventPosterUrl1 =result.getUri().toString();
+
+                    isImageOneSelected = true;
 
                 }
 
