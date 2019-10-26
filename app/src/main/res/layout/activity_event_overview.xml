@@ -13,134 +13,148 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <RelativeLayout
-        android:id="@+id/event_overview_sliderLayout"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="300dp" >
+        android:layout_height="wrap_content">
 
-        <androidx.viewpager.widget.ViewPager
-            android:id="@+id/event_overview_viewPager"
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-        </androidx.viewpager.widget.ViewPager>
+            <RelativeLayout
+                android:id="@+id/event_overview_sliderLayout"
+                android:layout_width="match_parent"
+                android:layout_height="300dp" >
 
-        <com.viewpagerindicator.CirclePageIndicator
-            android:id="@+id/event_overview_indicator"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:gravity="bottom"
-            android:padding="10dp"
-            app:centered="true"
-            app:fillColor="#df0623"
-            app:pageColor="#fff"
-            app:snap="false" />
+                <androidx.viewpager.widget.ViewPager
+                    android:id="@+id/event_overview_viewPager"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-    </RelativeLayout>
+                </androidx.viewpager.widget.ViewPager>
 
-    <TextView
-        android:id="@+id/event_overview_tvEventName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:gravity="center_vertical"
-        android:textAllCaps="true"
-        android:textColor="#fff"
-        android:textSize="18sp" />
+                <com.viewpagerindicator.CirclePageIndicator
+                    android:id="@+id/event_overview_indicator"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:gravity="bottom"
+                    android:padding="10dp"
+                    app:centered="true"
+                    app:fillColor="#df0623"
+                    app:pageColor="#fff"
+                    app:snap="false" />
 
-    <LinearLayout
-        android:id="@+id/event_overview_cvLinearLayout1"
-        android:layout_margin="10dp"
-        android:padding="10dp"
-        android:background="#fff"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+            </RelativeLayout>
 
-        <TextView
-            android:id="@+id/event_overview_tvEventDate"
-            android:drawableTop="@drawable/calender"
-            android:drawablePadding="10dp"
-            android:textSize="14sp"
-            android:textAlignment="center"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content" />
-        <TextView
-            android:id="@+id/event_overview_tvEventShares"
-            android:drawablePadding="10dp"
-            android:drawableTop="@drawable/shares"
-            android:textSize="14sp"
-            android:textAlignment="center"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content" />
-        <TextView
-            android:id="@+id/event_overview_tvEventGoing"
-            android:drawablePadding="10dp"
-            android:drawableTop="@drawable/going"
-            android:textSize="14sp"
-            android:textAlignment="center"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/event_overview_tvEventName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"
+                android:textAllCaps="true"
+                android:textColor="#fff"
+                android:textSize="18sp" />
 
-    </LinearLayout>
+            <LinearLayout
+                android:id="@+id/event_overview_cvLinearLayout1"
+                android:layout_margin="10dp"
+                android:padding="10dp"
+                android:background="#fff"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/event_overview_etEventDescription"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/event_overview_tvEventDate"
+                    android:drawableTop="@drawable/calender"
+                    android:drawablePadding="10dp"
+                    android:textSize="14sp"
+                    android:textAlignment="center"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/event_overview_tvEventShares"
+                    android:drawablePadding="10dp"
+                    android:drawableTop="@drawable/shares"
+                    android:textSize="14sp"
+                    android:textAlignment="center"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/event_overview_tvEventGoing"
+                    android:drawablePadding="10dp"
+                    android:drawableTop="@drawable/going"
+                    android:textSize="14sp"
+                    android:textAlignment="center"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content" />
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:enabled="false"
-            android:minLines="3"
-            android:maxLines="3"
-            android:maxLength="300"
-            android:gravity="top" />
-    </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
 
-    <Button
-        android:visibility="gone"
-        android:id="@+id/event_overview_btnSave"
-        android:background="@drawable/primary_button_background"
-        android:textColor="@color/colorWhite"
-        android:layout_marginTop="10dp"
-        android:layout_gravity="center_horizontal"
-        android:text="@string/update_event"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/event_overview_etEventDescription"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_gravity="end"
-        android:padding="10dp"
-        android:layout_marginBottom="10dp"
-        android:layout_marginEnd="5dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:enabled="false"
+                    android:minLines="3"
+                    android:maxLines="3"
+                    android:maxLength="300"
+                    android:gravity="top" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/event_overview_btnEdit"
-           android:src="@drawable/icon_edit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            <Button
+                android:visibility="gone"
+                android:id="@+id/event_overview_btnSave"
+                android:background="@drawable/primary_button_background"
+                android:textColor="@color/colorWhite"
+                android:layout_marginTop="10dp"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/update_event"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/event_overview_btnCancel"
-            android:layout_marginTop="5dp"
-            android:src="@drawable/icon_delete"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_gravity="end"
+                android:padding="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginEnd="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/event_overview_btnEdit"
+                    android:src="@drawable/icon_edit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/event_overview_btnCancel"
+                    android:layout_marginTop="5dp"
+                    android:src="@drawable/icon_delete"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
 
 
-    </LinearLayout>
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </ScrollView>
 
 
 </LinearLayout>

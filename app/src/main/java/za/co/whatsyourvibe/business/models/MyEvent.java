@@ -42,6 +42,46 @@ public class MyEvent  implements Serializable {
 
     private double eventEntryFee;
 
+    public double getStandardTicket() {
+        return standardTicket;
+    }
+
+    public void setStandardTicket(double standardTicket) {
+        this.standardTicket = standardTicket;
+    }
+
+    public double getEarlyBirdTicket() {
+        return earlyBirdTicket;
+    }
+
+    public void setEarlyBirdTicket(double earlyBirdTicket) {
+        this.earlyBirdTicket = earlyBirdTicket;
+    }
+
+    public double getGroupTicket() {
+        return groupTicket;
+    }
+
+    public void setGroupTicket(double groupTicket) {
+        this.groupTicket = groupTicket;
+    }
+
+    public double getVipTicket() {
+        return vipTicket;
+    }
+
+    public void setVipTicket(double vipTicket) {
+        this.vipTicket = vipTicket;
+    }
+
+    private double standardTicket;
+
+    private double earlyBirdTicket;
+
+    private double groupTicket;
+
+    private double vipTicket;
+
     private String eventPrivacy;
 
     private String creatorUid;

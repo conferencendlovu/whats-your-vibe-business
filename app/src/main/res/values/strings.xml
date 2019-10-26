@@ -8,6 +8,7 @@
     <string name="business_email_address">Business Email Address</string>
     <string name="address">Address</string>
     <string name="update_event">Update</string>
+    <string name="api_key">AIzaSyB5RVBa8HF79R-fgv4-M8_5lkXuUvYmfIs</string>
 
     <string-array name="event_categories">
         <item>Award Shows</item>

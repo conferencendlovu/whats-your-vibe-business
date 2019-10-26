@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/app_gradient_background"
+    android:orientation="vertical"
+    tools:context=".activities.event.EventTicketsActivity">
+
+    <include
+        android:id="@+id/event_tickets_toolbar"
+        layout="@layout/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <Switch
+        android:textColor="@color/colorTextButton"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="50dp"
+        android:id="@+id/event_ticket_swTicket"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:text="This is a paid event" />
+
+
+    <CheckBox
+        android:visibility="gone"
+        android:id="@+id/event_ticket_cbStandardTicket"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="25dp"
+        android:text="Standard Ticket"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <EditText
+        android:drawableStart="@drawable/icon_rand"
+        android:drawablePadding="5dp"
+        android:visibility="gone"
+        android:id="@+id/event_ticket_etStandardTicket"
+        android:inputType="numberDecimal"
+        android:layout_marginStart="25dp"
+        android:maxLength="7"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content" />
+
+    <CheckBox
+        android:visibility="gone"
+        android:id="@+id/event_ticket_cbEarlyBird"
+        android:layout_marginTop="10dp"
+        android:text="Early Bird Ticket"
+        android:layout_marginStart="25dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <EditText
+        android:drawableStart="@drawable/icon_rand"
+        android:drawablePadding="5dp"
+        android:visibility="gone"
+        android:id="@+id/event_ticket_etEarlyBird"
+        android:inputType="numberDecimal"
+        android:layout_marginStart="25dp"
+        android:maxLength="7"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content" />
+
+
+    <CheckBox
+        android:visibility="gone"
+        android:id="@+id/event_ticket_cbVipTicket"
+        android:layout_marginTop="10dp"
+        android:text="VIP Ticket"
+        android:layout_marginStart="25dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <EditText
+        android:drawableStart="@drawable/icon_rand"
+        android:drawablePadding="5dp"
+        android:visibility="gone"
+        android:id="@+id/event_ticket_etVipTicket"
+        android:inputType="numberDecimal"
+        android:layout_marginStart="25dp"
+        android:maxLength="7"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content" />
+
+    <CheckBox
+        android:visibility="gone"
+        android:id="@+id/event_ticket_cbGroupTicket"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="25dp"
+        android:text="Group Ticket"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <EditText
+        android:drawableStart="@drawable/icon_rand"
+        android:drawablePadding="5dp"
+        android:visibility="gone"
+        android:id="@+id/event_ticket_etGroupTicket"
+        android:layout_marginStart="25dp"
+        android:inputType="numberDecimal"
+        android:maxLength="7"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content" />
+
+
+    <Button
+        android:id="@+id/event_ticket_btnNext"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center_horizontal"
+        android:text="Next"
+        android:textColor="#fff"
+        android:textSize="22sp"
+        android:background="@drawable/round_button_border"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content" />
+
+
+</LinearLayout>

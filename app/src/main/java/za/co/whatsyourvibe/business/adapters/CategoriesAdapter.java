@@ -50,6 +50,10 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.My
             public void onClick(View v) {
 
                 Intent i = new Intent(context, EventDetailsActivity.class);
+
+                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+
                 context.startActivity(i);
 
                 EventCategory.myEvent.setCategory(categories.get(position).getTitle().toUpperCase().trim());
