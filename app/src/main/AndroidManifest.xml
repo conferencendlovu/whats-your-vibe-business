@@ -16,7 +16,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".activities.event.EventTicketsActivity"></activity>
+        <activity android:name=".activities.vibe.VibeDetailsActivity"></activity>
+        <activity android:name=".activities.vibe.VibesActivity" />
+        <activity android:name=".activities.event.EventTicketsActivity" />
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat" />

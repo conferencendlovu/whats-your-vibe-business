@@ -16,6 +16,7 @@ import io.github.inflationx.calligraphy3.CalligraphyConfig;
 import io.github.inflationx.calligraphy3.CalligraphyInterceptor;
 import io.github.inflationx.viewpump.ViewPump;
 import za.co.whatsyourvibe.business.activities.authentication.SignInActivity;
+import za.co.whatsyourvibe.business.activities.vibe.VibesActivity;
 
 
 public class SplashScreenActivity extends AppCompatActivity {
@@ -49,7 +50,7 @@ public class SplashScreenActivity extends AppCompatActivity {
                 FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
 
                 if (firebaseAuth.getCurrentUser() !=null){
-                    Intent i = new Intent(SplashScreenActivity.this, MainActivity.class);
+                    Intent i = new Intent(SplashScreenActivity.this, VibesActivity.class);
                     startActivity(i);
                     finish();
                 }else{
