@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:layout_margin="10dp"
+        android:text="TICKETS OPTIONS"
+        android:textSize="18sp"
+        fontPath="bold.ttf"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:ignore="MissingPrefix" />
+
+    <Switch
+        android:textColor="@color/colorTextButton"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="20dp"
+        android:id="@+id/dialog_update_vibe_tickets_swTicket"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:text="This is a paid event" />
+
+
+    <CheckBox
+        android:visibility="gone"
+        android:id="@+id/dialog_update_vibe_tickets_cbStandard"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="25dp"
+        android:text="Standard Ticket"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <EditText
+        android:drawableStart="@drawable/icon_rand"
+        android:drawablePadding="5dp"
+        android:visibility="gone"
+        android:id="@+id/dialog_update_vibe_tickets_etStandard"
+        android:inputType="numberDecimal"
+        android:layout_marginStart="25dp"
+        android:maxLength="7"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content" />
+
+    <CheckBox
+        android:visibility="gone"
+        android:id="@+id/dialog_update_vibe_tickets_cbEarlyBird"
+        android:layout_marginTop="10dp"
+        android:text="Early Bird Ticket"
+        android:layout_marginStart="25dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <EditText
+        android:drawableStart="@drawable/icon_rand"
+        android:drawablePadding="5dp"
+        android:visibility="gone"
+        android:id="@+id/dialog_update_vibe_tickets_etEarlyBird"
+        android:inputType="numberDecimal"
+        android:layout_marginStart="25dp"
+        android:maxLength="7"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content" />
+
+
+    <CheckBox
+        android:visibility="gone"
+        android:id="@+id/dialog_update_vibe_tickets_cbVip"
+        android:layout_marginTop="10dp"
+        android:text="VIP Ticket"
+        android:layout_marginStart="25dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <EditText
+        android:drawableStart="@drawable/icon_rand"
+        android:drawablePadding="5dp"
+        android:visibility="gone"
+        android:id="@+id/dialog_update_vibe_tickets_etVip"
+        android:inputType="numberDecimal"
+        android:layout_marginStart="25dp"
+        android:maxLength="7"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content" />
+
+    <CheckBox
+        android:visibility="gone"
+        android:id="@+id/dialog_update_vibe_tickets_cbGroup"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="25dp"
+        android:text="Group Ticket"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <EditText
+        android:drawableStart="@drawable/icon_rand"
+        android:drawablePadding="5dp"
+        android:visibility="gone"
+        android:id="@+id/dialog_update_vibe_tickets_etGroup"
+        android:layout_marginStart="25dp"
+        android:inputType="numberDecimal"
+        android:maxLength="7"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content" />
+
+
+    <Button
+        android:id="@+id/dialog_update_vibe_tickets_btnUpdate"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:layout_gravity="center_horizontal"
+        android:text="Update"
+        android:textColor="#fff"
+        android:textSize="22sp"
+        android:background="@drawable/round_button_border"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>

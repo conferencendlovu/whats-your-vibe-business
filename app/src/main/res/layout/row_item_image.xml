@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="350dp"
+    android:layout_height="450dp">
+
+    <ImageView
+        android:id="@+id/row_item_image_ivImage"
+        android:src="@drawable/upload_image"
+        android:scaleType="fitXY"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <ImageView
+        android:layout_margin="10dp"
+        android:layout_alignParentEnd="true"
+        android:src="@drawable/icon_delete_image"
+        android:layout_width="50dp"
+        android:layout_height="50dp" />
+
+</RelativeLayout>

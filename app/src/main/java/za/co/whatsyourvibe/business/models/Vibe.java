@@ -18,7 +18,49 @@ public class Vibe implements Serializable {
 
     private String status;
 
+    private String type;
+
     private String category;
+
+    public String getEarlyBird() {
+        return earlyBird;
+    }
+
+    public void setEarlyBird(String earlyBird) {
+        this.earlyBird = earlyBird;
+    }
+
+    public String getStandard() {
+        return standard;
+    }
+
+    public void setStandard(String standard) {
+        this.standard = standard;
+    }
+
+    public String getVip() {
+        return vip;
+    }
+
+    public void setVip(String vip) {
+        this.vip = vip;
+    }
+
+    public String getGroup() {
+        return group;
+    }
+
+    public void setGroup(String group) {
+        this.group = group;
+    }
+
+    private String earlyBird;
+
+    private String standard;
+
+    private String vip;
+
+    private String group;
 
     public Vibe() {
     }
@@ -85,5 +127,13 @@ public class Vibe implements Serializable {
 
     public void setCategory(String category) {
         this.category = category;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

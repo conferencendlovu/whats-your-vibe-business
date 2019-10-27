@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/app_gradient_background"
     android:orientation="vertical"
     tools:context=".activities.vibe.VibeDetailsActivity">
 
@@ -88,6 +89,7 @@
                     </LinearLayout>
 
                     <ImageView
+                        android:id="@+id/vibe_details_btnEditDescription"
                         android:src="@drawable/icon_more"
                         android:layout_width="50dp"
                         android:layout_gravity="center_vertical"
@@ -141,6 +143,7 @@
                     </LinearLayout>
 
                     <ImageView
+                        android:id="@+id/vibe_details_btnEditCategory"
                         android:src="@drawable/icon_more"
                         android:layout_width="50dp"
                         android:layout_gravity="center_vertical"
@@ -194,6 +197,7 @@
                     </LinearLayout>
 
                     <ImageView
+                        android:id="@+id/vibe_details_btnEditLocation"
                         android:src="@drawable/icon_more"
                         android:layout_width="50dp"
                         android:layout_gravity="center_vertical"
@@ -247,6 +251,7 @@
                     </LinearLayout>
 
                     <ImageView
+                        android:id="@+id/vibe_details_btnEditDate"
                         android:src="@drawable/icon_more"
                         android:layout_width="50dp"
                         android:layout_gravity="center_vertical"
@@ -300,6 +305,7 @@
                     </LinearLayout>
 
                     <ImageView
+                        android:id="@+id/vibe_details_btnEditTime"
                         android:src="@drawable/icon_more"
                         android:layout_width="50dp"
                         android:layout_gravity="center_vertical"
@@ -313,7 +319,7 @@
                 android:layout_margin="5dp"
                 app:cardCornerRadius="5dp"
                 android:layout_width="match_parent"
-                android:layout_height="70dp">
+                android:layout_height="wrap_content">
 
                 <LinearLayout
                     android:orientation="horizontal"
@@ -321,6 +327,7 @@
                     android:layout_height="wrap_content">
 
                     <ImageView
+                        android:layout_gravity="center_vertical"
                         android:src="@drawable/icon_ticket"
                         android:layout_margin="10dp"
                         android:layout_width="30dp"
@@ -353,6 +360,7 @@
                     </LinearLayout>
 
                     <ImageView
+                        android:id="@+id/vibe_details_btnEditTickets"
                         android:src="@drawable/icon_more"
                         android:layout_width="50dp"
                         android:layout_gravity="center_vertical"
@@ -459,10 +467,20 @@
                     </LinearLayout>
 
                     <ImageView
-                        android:src="@drawable/icon_more"
-                        android:layout_width="50dp"
+                        android:id="@+id/vibe_details_btnViewImage"
+                        android:src="@drawable/icon_view_images"
+                        android:layout_width="40dp"
                         android:layout_gravity="center_vertical"
-                        android:layout_height="50dp" />
+                        android:layout_marginEnd="10dp"
+                        android:layout_height="40dp" />
+
+                    <ImageView
+                        android:id="@+id/vibe_details_btnUploadImage"
+                        android:src="@drawable/icon_upload_image"
+                        android:layout_width="40dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_height="40dp" />
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>

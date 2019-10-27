@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:background="@drawable/app_gradient_background"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/dialog_vibe_images_btnClose"
+        android:layout_margin="8dp"
+        android:src="@drawable/close"
+        android:layout_width="50dp"
+        android:layout_height="50dp" />
+
+    <ProgressBar
+        android:id="@+id/dialog_vibe_images_progressBar"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="50dp"
+        android:layout_height="50dp" />
+
+    <TextView
+        android:visibility="gone"
+        android:id="@+id/dialog_vibe_images_textView"
+        android:textSize="16sp"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="50dp"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:visibility="gone"
+        android:layout_margin="10dp"
+        android:id="@+id/dialog_vibe_images_recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>

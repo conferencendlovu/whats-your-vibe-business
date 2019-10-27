@@ -257,13 +257,6 @@ public class EventDetailsActivity extends AppCompatActivity {
 
     private void pickImageFromGallery() {
 
-//        // intent to pick image
-//        Intent intent  =   new Intent(Intent.ACTION_PICK);
-//
-//        intent.setType("image/*");
-//
-//        startActivityForResult(intent, RC_IMAGE_PICKER);
-
         CropImage.activity()
                 .setGuidelines(CropImageView.Guidelines.ON)
                 .setAspectRatio(4,3)
