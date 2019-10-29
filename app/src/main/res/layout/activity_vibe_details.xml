@@ -36,7 +36,7 @@
                 <Button
                     android:id="@+id/vibe_details_btnVibeStatusUpdate"
                     android:layout_margin="10dp"
-                    android:text="Published"
+                    android:text="Publish"
                     android:layout_alignParentEnd="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
@@ -520,7 +520,6 @@
 
                         <TextView
                             android:id="@+id/vibe_details_tvVideos"
-                            android:text="1 Video uploaded"
                             android:textSize="14sp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -530,7 +529,16 @@
                     </LinearLayout>
 
                     <ImageView
-                        android:src="@drawable/icon_more"
+                        android:id="@+id/vibe_details_btnViewVideo"
+                        android:src="@drawable/icon_view_video"
+                        android:layout_width="50dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_height="50dp" />
+
+
+                    <ImageView
+                        android:id="@+id/vibe_details_btnUploadVideo"
+                        android:src="@drawable/icon_upload_video"
                         android:layout_width="50dp"
                         android:layout_gravity="center_vertical"
                         android:layout_height="50dp" />

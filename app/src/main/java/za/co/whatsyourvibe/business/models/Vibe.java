@@ -22,6 +22,21 @@ public class Vibe implements Serializable {
 
     private String category;
 
+    private String videoUrl;
+
+    private String earlyBird;
+
+    private String standard;
+
+    private String vip;
+
+    private String group;
+
+
+    public Vibe() {
+    }
+
+
     public String getEarlyBird() {
         return earlyBird;
     }
@@ -54,16 +69,6 @@ public class Vibe implements Serializable {
         this.group = group;
     }
 
-    private String earlyBird;
-
-    private String standard;
-
-    private String vip;
-
-    private String group;
-
-    public Vibe() {
-    }
 
     public String getId() {
         return id;
@@ -135,5 +140,13 @@ public class Vibe implements Serializable {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getVideoUrl() {
+        return videoUrl;
+    }
+
+    public void setVideoUrl(String videoUrl) {
+        this.videoUrl = videoUrl;
     }
 }

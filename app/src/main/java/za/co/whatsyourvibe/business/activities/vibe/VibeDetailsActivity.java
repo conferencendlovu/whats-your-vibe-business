@@ -16,6 +16,7 @@ import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -32,11 +33,13 @@ import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.MediaController;
 import android.widget.ProgressBar;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
+import android.widget.VideoView;
 
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -52,6 +55,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.theartofdev.edmodo.cropper.CropImage;
@@ -75,6 +79,7 @@ import za.co.whatsyourvibe.business.models.Vibe;
 public class VibeDetailsActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener{
 
     private static final String TAG = "VibeDetailsActivity";
+    private static final int REQUEST_PICK_VIDEO = 122;
 
     private int AUTOCOMPLETE_REQUEST_CODE = 1;
 
@@ -90,6 +95,8 @@ public class VibeDetailsActivity extends AppCompatActivity implements DatePicker
 
     private String mVibeLocationId;
 
+    ProgressDialog progressDialog;
+
     String vibeType = "Free Event";
 
     String standard = "";
@@ -100,7 +107,11 @@ public class VibeDetailsActivity extends AppCompatActivity implements DatePicker
 
     String vip = "";
 
-    private Uri mImageUri;
+    String vibeId;
+
+    String videoPath;
+
+    private Uri mImageUri, videoUri;
 
     private StorageReference mStorageReference;
 
@@ -115,7 +126,7 @@ public class VibeDetailsActivity extends AppCompatActivity implements DatePicker
 
         super.onCreate(savedInstanceState);
 
-        String vibeId = getIntent().getStringExtra("VIBE_ID");
+        vibeId = getIntent().getStringExtra("VIBE_ID");
 
         String vibeTitle = getIntent().getStringExtra("VIBE_TITLE");
 
@@ -209,6 +220,17 @@ public class VibeDetailsActivity extends AppCompatActivity implements DatePicker
             } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
 
                 Exception error = result.getError();
+            }
+        }
+
+        if (requestCode == REQUEST_PICK_VIDEO) {
+
+            if (resultCode == RESULT_OK) {
+
+                videoUri = data.getData();
+
+                uploadVideoToServer();
+
             }
         }
     }
@@ -324,6 +346,27 @@ public class VibeDetailsActivity extends AppCompatActivity implements DatePicker
             public void onClick(View v) {
 
                 showVibeImages(id);
+            }
+        });
+
+        ImageView uploadVideo = findViewById(R.id.vibe_details_btnUploadVideo);
+
+        uploadVideo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                uploadVideo(id);
+            }
+        });
+
+
+        ImageView viewVideo = findViewById(R.id.vibe_details_btnViewVideo);
+
+        viewVideo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                showVibeVideo(id);
             }
         });
     }
@@ -885,7 +928,18 @@ public class VibeDetailsActivity extends AppCompatActivity implements DatePicker
 
                                 mPhotos.setText("No photos uploaded");
 
-                                mVideos.setText("No video uploaded");
+                                if (vibe.getVideoUrl() !=null) {
+
+                                    mVideos.setText("1 video uploaded");
+
+                                    videoPath = vibe.getVideoUrl();
+
+                                }else{
+
+                                    mVideos.setText("No video uploaded");
+
+                                }
+
 
                             }
 
@@ -1077,6 +1131,191 @@ public class VibeDetailsActivity extends AppCompatActivity implements DatePicker
 
             }
         });
+
+        alertDialog.show();
+
+    }
+
+    private void uploadVideo(String id) {
+
+        // check permissions
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+
+            if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) ==
+                        PackageManager.PERMISSION_DENIED) {
+
+                // permission not granted. ask for it
+                String[] permissions = {Manifest.permission.READ_EXTERNAL_STORAGE};
+
+                // show pop up
+                requestPermissions(permissions, RC_PERMISSION);
+
+            } else {
+
+                // permission already granted
+                pickVideoFromGallery();
+            }
+
+        } else {
+            // device less then mashmallow
+
+            pickVideoFromGallery();
+
+        }
+
+    }
+
+    private void pickVideoFromGallery() {
+
+        Intent pickVideoIntent = new Intent(Intent.ACTION_GET_CONTENT);
+
+        pickVideoIntent.setType("video/*");
+
+        startActivityForResult(pickVideoIntent, REQUEST_PICK_VIDEO);
+
+    }
+
+    private void uploadVideoToServer() {
+
+        progressDialog = new ProgressDialog(this);
+
+        progressDialog.setCanceledOnTouchOutside(false);
+
+        progressDialog.setTitle("Uploading video....");
+
+        progressDialog.show();
+
+        StorageReference storageReference = FirebaseStorage.getInstance().getReference();
+
+        mStorageReference = storageReference.child("/videos/" + vibeId + "/vibe.3gp");
+
+        if (videoUri  != null) {
+
+            UploadTask uploadTask = mStorageReference.putFile(videoUri);
+
+            uploadTask.addOnFailureListener(new OnFailureListener() {
+
+                @Override
+                public void onFailure(@NonNull Exception e) {
+
+                    progressDialog.dismiss();
+
+                    Toast.makeText(VibeDetailsActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+
+                }
+
+            }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+                    progressDialog.dismiss();
+
+                    videoUri =  taskSnapshot.getUploadSessionUri();
+
+
+                    FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
+
+                    firebaseFirestore.collection("vibes")
+                            .document(mVibeLocationId)
+                            .update("videoUrl",videoUri.toString() );
+
+                    Toast.makeText(VibeDetailsActivity.this, "Video uploaded successfully",
+                            Toast.LENGTH_SHORT).show();
+
+                }
+
+            });
+
+        }else {
+
+            progressDialog.dismiss();
+
+            Toast.makeText(this, "Nothing to upload", Toast.LENGTH_SHORT).show();
+
+        }
+
+    }
+
+    private void showVibeVideo(String id) {
+
+        MediaController mediaController  = new MediaController(this);
+
+        //TextView mBufferingTextView;
+
+        int mCurrentPosition = 0;
+
+
+        Uri uri = Uri.parse("http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4");
+
+        //before inflating the custom alert dialog layout, we will get the current activity viewgroup
+        ViewGroup viewGroup = findViewById(android.R.id.content);
+
+        //then we will inflate the custom alert dialog xml that we created
+        View dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_vibe_video, viewGroup, false);
+
+
+        final TextView title =
+                dialogView.findViewById(R.id.dialog_vibe_video_textView);
+
+        VideoView video = dialogView.findViewById(R.id.dialog_vibe_video_videoView);
+
+        // Show the "Buffering..." message while the video loads.
+        title.setVisibility(VideoView.VISIBLE);
+
+        video.setVideoURI(uri);
+
+        video.setMediaController(mediaController);
+
+        // mediaController.setAnchorView(video);
+
+        // Listener for onPrepared() event (runs after the media is prepared).
+        video.setOnPreparedListener(
+                new MediaPlayer.OnPreparedListener() {
+                    @Override
+                    public void onPrepared(MediaPlayer mediaPlayer) {
+
+                        // Hide buffering message.
+                        //title.setVisibility(VideoView.INVISIBLE);
+
+                        // Restore saved position, if available.
+                        if (mCurrentPosition > 0) {
+                            video.seekTo(mCurrentPosition);
+                        } else {
+                            // Skipping to 1 shows the first frame of the video.
+                            video.seekTo(1);
+                        }
+
+                        // Start playing!
+                        video.start();
+                    }
+                });
+
+        video.setOnCompletionListener(
+                new MediaPlayer.OnCompletionListener() {
+                    @Override
+                    public void onCompletion(MediaPlayer mediaPlayer) {
+
+                        // Return the video position to the start.
+                        video.seekTo(0);
+                    }
+                });
+
+        ImageView delete = dialogView.findViewById(R.id.dialog_vibe_video_btnDeleteVideo);
+
+
+        FirebaseFirestore imagesRef = FirebaseFirestore.getInstance();
+
+
+        //Now we need an AlertDialog.Builder object
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        //setting the view of the builder to our custom view that we already inflated
+        builder.setView(dialogView);
+
+        //finally creating the alert dialog and displaying it
+        final AlertDialog alertDialog = builder.create();
+
 
         alertDialog.show();
 
