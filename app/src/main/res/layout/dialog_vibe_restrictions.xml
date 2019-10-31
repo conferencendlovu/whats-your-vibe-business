@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:padding="15dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:text="EVENT RESTRICTIONS"
+        android:textSize="18sp"
+        android:layout_margin="10dp"
+        android:layout_gravity="center_horizontal"
+        fontPath="fonts/bold.ttf"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:ignore="MissingPrefix" />
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/dialog_vibe_restrictions_swRestricted"
+        android:layout_marginTop="10dp"
+        android:textSize="15sp"
+        android:text="Is this a restricted event?"
+        app:switchPadding="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <CheckBox
+        android:id="@+id/dialog_vibe_restrictions_cbType"
+        android:layout_marginTop="10dp"
+        android:text="Private Event"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <CheckBox
+        android:id="@+id/dialog_vibe_restrictions_cbAge"
+        android:layout_marginTop="10dp"
+        android:text="Age Restricted"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <EditText
+        android:id="@+id/dialog_vibe_restrictions_etAge"
+        android:hint="Enter minimum age"
+        android:maxLength="2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <CheckBox
+        android:id="@+id/dialog_vibe_restrictions_cbAlcohol"
+        android:layout_marginTop="10dp"
+        android:text="Alcohol Allowed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <CheckBox
+        android:id="@+id/dialog_vibe_restrictions_cbSmoking"
+        android:layout_marginTop="10dp"
+        android:text="Smoking Allowed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>

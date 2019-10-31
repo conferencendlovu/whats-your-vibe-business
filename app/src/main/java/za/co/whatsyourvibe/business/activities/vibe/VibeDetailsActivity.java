@@ -14,6 +14,7 @@ import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.media.MediaPlayer;
@@ -1246,7 +1247,7 @@ public class VibeDetailsActivity extends AppCompatActivity implements DatePicker
         int mCurrentPosition = 0;
 
 
-        Uri uri = Uri.parse("http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4");
+        Uri uri = Uri.parse(videoPath);
 
         //before inflating the custom alert dialog layout, we will get the current activity viewgroup
         ViewGroup viewGroup = findViewById(android.R.id.content);
@@ -1318,6 +1319,14 @@ public class VibeDetailsActivity extends AppCompatActivity implements DatePicker
 
 
         alertDialog.show();
+
+        alertDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+
+                video.stopPlayback();
+            }
+        });
 
     }
 }
