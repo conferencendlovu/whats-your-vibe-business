@@ -27,6 +27,7 @@
         android:layout_height="wrap_content" />
 
     <CheckBox
+        android:visibility="gone"
         android:id="@+id/dialog_vibe_restrictions_cbType"
         android:layout_marginTop="10dp"
         android:text="Private Event"
@@ -34,6 +35,7 @@
         android:layout_height="wrap_content" />
 
     <CheckBox
+        android:visibility="gone"
         android:id="@+id/dialog_vibe_restrictions_cbAge"
         android:layout_marginTop="10dp"
         android:text="Age Restricted"
@@ -41,6 +43,7 @@
         android:layout_height="wrap_content" />
 
     <EditText
+        android:visibility="gone"
         android:id="@+id/dialog_vibe_restrictions_etAge"
         android:hint="Enter minimum age"
         android:maxLength="2"
@@ -48,6 +51,7 @@
         android:layout_height="wrap_content" />
 
     <CheckBox
+        android:visibility="gone"
         android:id="@+id/dialog_vibe_restrictions_cbAlcohol"
         android:layout_marginTop="10dp"
         android:text="Alcohol Allowed"
@@ -55,6 +59,7 @@
         android:layout_height="wrap_content" />
 
     <CheckBox
+        android:visibility="gone"
         android:id="@+id/dialog_vibe_restrictions_cbSmoking"
         android:layout_marginTop="10dp"
         android:text="Smoking Allowed"

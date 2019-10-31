@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SwitchCompat;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -21,7 +22,9 @@ import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -43,8 +46,10 @@ import android.widget.Toast;
 import android.widget.VideoView;
 
 import com.google.android.gms.common.api.Status;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.model.Place;
 import com.google.android.libraries.places.widget.Autocomplete;
@@ -96,23 +101,25 @@ public class VibeDetailsActivity extends AppCompatActivity implements DatePicker
 
     private String mVibeLocationId;
 
-    ProgressDialog progressDialog;
+    private ProgressDialog progressDialog;
 
-    String vibeType = "Free Event";
+    private String vibeType = "Free Event";
 
-    String standard = "";
+    private String standard = "";
 
-    String earlyBird = "";
+    private String earlyBird = "";
 
-    String group = "";
+    private String group = "";
 
-    String vip = "";
+    private String vip = "";
 
-    String vibeId;
+    private String vibeId;
 
-    String videoPath;
+    private String videoPath;
 
     private Uri mImageUri, videoUri;
+
+    private String uploadedImages;
 
     private StorageReference mStorageReference;
 
@@ -260,6 +267,25 @@ public class VibeDetailsActivity extends AppCompatActivity implements DatePicker
 
         setViewListeners(id);
 
+        // get vibe photo count
+
+        FirebaseFirestore photosRef = FirebaseFirestore.getInstance();
+
+        photosRef.collection("photos")
+                .document(id)
+                .collection("vibePhotos")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+
+                        uploadedImages = task.getResult().size() + " photos uploaded";
+
+                        mPhotos.setText(uploadedImages);
+
+                    }
+                });
+
     }
 
     private void setViewListeners(String id) {
@@ -368,6 +394,17 @@ public class VibeDetailsActivity extends AppCompatActivity implements DatePicker
             public void onClick(View v) {
 
                 showVibeVideo(id);
+            }
+        });
+
+        ImageView manageRestrictions = findViewById(R.id.vibe_details_btnManageRestrictions);
+
+        manageRestrictions.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                setEventRestrictionsDialog(id);
+
             }
         });
     }
@@ -911,7 +948,7 @@ public class VibeDetailsActivity extends AppCompatActivity implements DatePicker
 
                                 mTime.setText(vibe.getTime());
 
-                                if (TextUtils.isEmpty(vibe.getType())) {
+                                if (TextUtils.isEmpty(vibe.getAdmission())) {
 
                                     mTicket.setText("No tickets set for this event");
 
@@ -924,10 +961,18 @@ public class VibeDetailsActivity extends AppCompatActivity implements DatePicker
 
                                 }
 
+                                if (TextUtils.isEmpty(vibe.getType())) {
 
-                                mRestrictions.setText("Unrestricted vibe");
+                                    mRestrictions.setText("No Restrictions set for this event");
 
-                                mPhotos.setText("No photos uploaded");
+                                }else {
+
+                                    mRestrictions.setText(vibe.getType() + "\n" +
+                                                                 vibe.getAge() + "\n" +
+                                                                 vibe.getAlcohol() + "\n" +
+                                                                 vibe.getSmoking());
+
+                                }
 
                                 if (vibe.getVideoUrl() !=null) {
 
@@ -941,9 +986,7 @@ public class VibeDetailsActivity extends AppCompatActivity implements DatePicker
 
                                 }
 
-
                             }
-
 
                         }else{
 
@@ -1327,6 +1370,145 @@ public class VibeDetailsActivity extends AppCompatActivity implements DatePicker
                 video.stopPlayback();
             }
         });
+
+    }
+
+    private void setEventRestrictionsDialog(String id) {
+
+        FirebaseFirestore restrictionsRef = FirebaseFirestore.getInstance();
+
+
+        //before inflating the custom alert dialog layout, we will get the current activity viewgroup
+        ViewGroup viewGroup = findViewById(android.R.id.content);
+
+        //then we will inflate the custom alert dialog xml that we created
+        View dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_vibe_restrictions, viewGroup, false);
+
+
+        SwitchCompat swRestriction =
+                dialogView.findViewById(R.id.dialog_vibe_restrictions_swRestricted);
+
+        CheckBox type= dialogView.findViewById(R.id.dialog_vibe_restrictions_cbType);
+
+        CheckBox age = dialogView.findViewById(R.id.dialog_vibe_restrictions_cbAge);
+
+        CheckBox alcohol = dialogView.findViewById(R.id.dialog_vibe_restrictions_cbAlcohol);
+
+        CheckBox smoking = dialogView.findViewById(R.id.dialog_vibe_restrictions_cbSmoking);
+
+        EditText minAge = dialogView.findViewById(R.id.dialog_vibe_restrictions_etAge);
+
+        swRestriction.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+                if (isChecked) {
+
+                    type.setVisibility(View.VISIBLE);
+
+                    age.setVisibility(View.VISIBLE);
+
+                    alcohol.setVisibility(View.VISIBLE);
+
+                    smoking.setVisibility(View.VISIBLE);
+
+                } else {
+
+                    type.setVisibility(View.GONE);
+
+                    age.setVisibility(View.GONE);
+
+                    alcohol.setVisibility(View.GONE);
+
+                    smoking.setVisibility(View.GONE);
+                }
+
+            }
+        });
+
+
+        age.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+                if (isChecked) {
+
+                   minAge.setVisibility(View.VISIBLE);
+                } else {
+                    // hide age box
+
+                    minAge.setVisibility(View.GONE);
+                }
+            }
+        });
+
+        minAge.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+                restrictionsRef.collection("vibes")
+                        .document(id)
+                        .update("age","No under " + s + " allowed");
+
+            }
+        });
+
+        alcohol.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+                if (isChecked) {
+
+                    restrictionsRef.collection("vibes")
+                            .document(id)
+                            .update("alcohol","Alcohol Allowed");
+                } else {
+                    restrictionsRef.collection("vibes")
+                            .document(id)
+                            .update("alcohol","Alcohol Not Allowed");
+                }
+            }
+        });
+
+
+        smoking.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+                if (isChecked) {
+
+                    restrictionsRef.collection("vibes")
+                            .document(id)
+                            .update("smoking","Smoking Allowed");
+                } else {
+                    restrictionsRef.collection("vibes")
+                            .document(id)
+                            .update("smoking","Smoking Not Allowed");
+                }
+            }
+        });
+
+
+        //Now we need an AlertDialog.Builder object
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        //setting the view of the builder to our custom view that we already inflated
+        builder.setView(dialogView);
+
+        //finally creating the alert dialog and displaying it
+        final AlertDialog alertDialog = builder.create();
+
+        alertDialog.show();
 
     }
 }

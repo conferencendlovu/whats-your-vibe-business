@@ -20,6 +20,14 @@ public class Vibe implements Serializable {
 
     private String type;
 
+    private String admission;
+
+    private String alcohol;
+
+    private String smoking;
+
+    private String age;
+
     private String category;
 
     private String videoUrl;
@@ -148,5 +156,37 @@ public class Vibe implements Serializable {
 
     public void setVideoUrl(String videoUrl) {
         this.videoUrl = videoUrl;
+    }
+
+    public String getAlcohol() {
+        return alcohol;
+    }
+
+    public void setAlcohol(String alcohol) {
+        this.alcohol = alcohol;
+    }
+
+    public String getSmoking() {
+        return smoking;
+    }
+
+    public void setSmoking(String smoking) {
+        this.smoking = smoking;
+    }
+
+    public String getAge() {
+        return age;
+    }
+
+    public void setAge(String age) {
+        this.age = age;
+    }
+
+    public String getAdmission() {
+        return admission;
+    }
+
+    public void setAdmission(String admission) {
+        this.admission = admission;
     }
 }

@@ -374,7 +374,7 @@
                 android:layout_margin="5dp"
                 app:cardCornerRadius="5dp"
                 android:layout_width="match_parent"
-                android:layout_height="70dp">
+                android:layout_height="wrap_content">
 
                 <LinearLayout
                     android:orientation="horizontal"
@@ -414,6 +414,7 @@
                     </LinearLayout>
 
                     <ImageView
+                        android:id="@+id/vibe_details_btnManageRestrictions"
                         android:src="@drawable/icon_more"
                         android:layout_width="50dp"
                         android:layout_gravity="center_vertical"
