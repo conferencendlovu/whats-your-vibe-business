@@ -45,6 +45,7 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 import android.widget.VideoView;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -91,6 +92,8 @@ public class VibeDetailsActivity extends AppCompatActivity implements DatePicker
 
     private static final int RC_PERMISSION = 200;
 
+    private static final int COVER_PERMISSION = 201;
+
     private TextView mDescription, mCategory, mLocation, mDate, mTime;
 
     private TextView mTicket;
@@ -115,6 +118,10 @@ public class VibeDetailsActivity extends AppCompatActivity implements DatePicker
 
     private String vibeId;
 
+    private boolean isCoverImage = false;
+
+    private ImageView ivCoverPhoto;
+
     private String videoPath;
 
     private Uri mImageUri, videoUri;
@@ -122,6 +129,8 @@ public class VibeDetailsActivity extends AppCompatActivity implements DatePicker
     private String uploadedImages;
 
     private StorageReference mStorageReference;
+
+    private Button btnPublish, btnUnPublish;
 
 
     @Override
@@ -142,15 +151,29 @@ public class VibeDetailsActivity extends AppCompatActivity implements DatePicker
 
         Toolbar toolbar = findViewById(R.id.vibes_details_toolbar);
 
+
         mStorageReference = FirebaseStorage.getInstance().getReference("event_photos");
 
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        Button addButton = findViewById(R.id.toolbar_createVibe);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
 
-        addButton.setVisibility(View.GONE);
+            @Override
+            public void onClick(View view) {
+
+                Toast.makeText(VibeDetailsActivity.this, "Test", Toast.LENGTH_SHORT).show();
+                finish();
+            }
+        });
+
+
+        // Button addButton = findViewById(R.id.toolbar_createVibe);
+
+        // addButton.setVisibility(View.GONE);
+
+
 
         String apiKey = getString(R.string.api_key);
 
@@ -169,10 +192,6 @@ public class VibeDetailsActivity extends AppCompatActivity implements DatePicker
             initViews(vibeId);
 
         }else {
-
-            Toast.makeText(VibeDetailsActivity.this, "Couldn't load vibe details " +
-                                                             "at this time",
-                    Toast.LENGTH_LONG).show();
 
             finish();
 
@@ -241,9 +260,17 @@ public class VibeDetailsActivity extends AppCompatActivity implements DatePicker
 
             }
         }
+
     }
 
+
     private void initViews(String id) {
+
+        btnPublish = findViewById(R.id.vibe_details_btnVibeStatusUpdate);
+
+        btnUnPublish = findViewById(R.id.vibe_details_btnVibeStatusUpdateUnpublish);
+
+        ivCoverPhoto = findViewById(R.id.vibe_details_ivPoster);
 
         mDescription = findViewById(R.id.vibe_details_tvDescription);
 
@@ -288,7 +315,77 @@ public class VibeDetailsActivity extends AppCompatActivity implements DatePicker
 
     }
 
+    private void updateEventStatus(String id, String status) {
+
+        FirebaseFirestore updateEventRef = FirebaseFirestore.getInstance();
+
+        updateEventRef.collection("vibes")
+                .document(id)
+                .update("status", status)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+
+                        if (TextUtils.equals("Active",status)) {
+
+                            btnPublish.setVisibility(View.GONE);
+
+                            btnUnPublish.setVisibility(View.VISIBLE);
+
+                            Toast.makeText(VibeDetailsActivity.this, "Event published successfully",
+                                    Toast.LENGTH_SHORT).show();
+
+                        }else {
+
+                            btnUnPublish.setVisibility(View.GONE);
+
+                            btnPublish.setVisibility(View.VISIBLE);
+
+                            Toast.makeText(VibeDetailsActivity.this, "Event un-published " +
+                                                                             "successfully",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+
+
+
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+
+                Toast.makeText(VibeDetailsActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+    }
+
     private void setViewListeners(String id) {
+
+        btnPublish.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                updateEventStatus(id, "Active");
+            }
+        });
+
+
+        btnUnPublish.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                updateEventStatus(id, "Not Active");
+            }
+        });
+
+
+        ivCoverPhoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setCoverPhoto(id);
+            }
+        });
 
         ImageView editDescription = findViewById(R.id.vibe_details_btnEditDescription);
 
@@ -407,6 +504,47 @@ public class VibeDetailsActivity extends AppCompatActivity implements DatePicker
 
             }
         });
+    }
+
+    private void setCoverPhoto(String id) {
+
+        isCoverImage = true;
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+
+            if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) ==
+                        PackageManager.PERMISSION_DENIED) {
+
+                // permission not granted. ask for it
+                String[] permissions = {Manifest.permission.READ_EXTERNAL_STORAGE};
+
+                // show pop up
+                requestPermissions(permissions, COVER_PERMISSION);
+
+            } else {
+
+                // permission already granted
+                CropImage.activity()
+                        .setGuidelines(CropImageView.Guidelines.ON)
+                        .setAspectRatio(4,3)
+                        .setAutoZoomEnabled(true)
+                        .setMaxZoom(4)
+                        .setMinCropResultSize(450,200)
+                        .start(this);
+            }
+
+        } else {
+            // device less then mashmallow
+
+            CropImage.activity()
+                    .setGuidelines(CropImageView.Guidelines.ON)
+                    .setAspectRatio(4,3)
+                    .setAutoZoomEnabled(true)
+                    .setMinCropResultSize(450,200)
+                    .start(this);
+
+        }
+
     }
 
     private void checkPermission() {
@@ -938,6 +1076,26 @@ public class VibeDetailsActivity extends AppCompatActivity implements DatePicker
 
                             if (vibe !=null) {
 
+                                if (TextUtils.equals(vibe.getStatus(),"Active")) {
+
+                                    btnPublish.setVisibility(View.GONE);
+
+                                    btnUnPublish.setVisibility(View.VISIBLE);
+                                }else{
+
+                                    btnPublish.setVisibility(View.VISIBLE);
+
+                                    btnUnPublish.setVisibility(View.GONE);
+
+                                }
+
+
+                                Glide
+                                        .with(VibeDetailsActivity.this)
+                                        .load(vibe.getCoverPhotoUrl())
+                                        .centerCrop()
+                                        .into(ivCoverPhoto);
+
                                 mDescription.setText(vibe.getDescription());
 
                                 mCategory.setText(vibe.getCategory());
@@ -1064,14 +1222,33 @@ public class VibeDetailsActivity extends AppCompatActivity implements DatePicker
 
         FirebaseFirestore imagesRef = FirebaseFirestore.getInstance();
 
-        HashMap<String, Object> image = new HashMap<>();
+        if (isCoverImage) {
 
-        image.put("downloadLink", uri.toString());
+            ivCoverPhoto.setImageURI(mImageUri);
 
-        imagesRef.collection("photos")
-                .document(mVibeLocationId)
-                .collection("vibePhotos")
-                .add(image);
+            HashMap<String, Object> image = new HashMap<>();
+
+            image.put("coverPhotoUrl", uri.toString());
+
+            imagesRef.collection("vibes")
+                    .document(vibeId)
+                    .update(image);
+
+
+        }else {
+
+            HashMap<String, Object> image = new HashMap<>();
+
+            image.put("downloadLink", uri.toString());
+
+            imagesRef.collection("photos")
+                    .document(vibeId)
+                    .collection("vibePhotos")
+                    .add(image);
+
+        }
+
+
     }
 
     private void showVibeImages(String id) {

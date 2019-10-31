@@ -1,9 +1,11 @@
 package za.co.whatsyourvibe.business.activities.vibe;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
@@ -13,6 +15,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -23,8 +26,10 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -40,7 +45,9 @@ import java.util.List;
 import javax.annotation.Nullable;
 
 import io.github.inflationx.viewpump.ViewPumpContextWrapper;
+import za.co.whatsyourvibe.business.MainActivity;
 import za.co.whatsyourvibe.business.R;
+import za.co.whatsyourvibe.business.activities.profile.MembershipActivity;
 import za.co.whatsyourvibe.business.adapters.VibesAdapter;
 import za.co.whatsyourvibe.business.models.Vibe;
 
@@ -53,6 +60,20 @@ public class VibesActivity extends AppCompatActivity {
     private ProgressBar progressBar;
 
     private TextView textView;
+
+    private DrawerLayout mDrawerLayout;
+
+    private ActionBarDrawerToggle mToggle;
+
+    private String mDisplayName;
+
+    private String mMembershipType;
+
+    private String businessId;
+
+    private FirebaseAuth auth;
+
+    private Toolbar toolbar;
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -67,28 +88,32 @@ public class VibesActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_vibes);
 
-        Toolbar toolbar = findViewById(R.id.vibes_toolbar);
+        toolbar = findViewById(R.id.vibes_toolbar);
+
+        auth = FirebaseAuth.getInstance();
+
+        businessId = auth.getUid();
+
+        mDisplayName = auth.getCurrentUser().getDisplayName();
 
         setSupportActionBar(toolbar);
 
-        getSupportActionBar().setTitle("WYV");
+        setNavigationDrawer();
 
         Button btnCreateVibe = findViewById(R.id.toolbar_createVibe);
 
 
-        FirebaseAuth mAuth = FirebaseAuth.getInstance();
-
         initViews();
 
-        if (mAuth.getCurrentUser() !=null) {
+        if (auth.getCurrentUser() !=null) {
 
-            getVibes(mAuth.getCurrentUser().getUid());
+            getVibes(auth.getCurrentUser().getUid());
 
             btnCreateVibe.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
-                    showCreateVibeDialog(mAuth.getCurrentUser().getUid());
+                    showCreateVibeDialog(auth.getCurrentUser().getUid());
 
                 }
             });
@@ -112,8 +137,6 @@ public class VibesActivity extends AppCompatActivity {
 
         final TextInputLayout description =
                 dialogView.findViewById(R.id.dialog_create_vibe_description);
-
-        final Spinner category = dialogView.findViewById(R.id.dialog_create_vibe_spnCategory);
 
 
         final Button btnCreate = dialogView.findViewById(R.id.dialog_create_vibe_btnCreate);
@@ -150,13 +173,22 @@ public class VibesActivity extends AppCompatActivity {
                 btnCreate.setText("Creating vibe...");
                 // create a profile to database
 
-                String vibeId =  "new Date()";
+                FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
+
+                DocumentReference doc = firebaseFirestore.collection("vibes").document();
+
+                String vibeId = doc.getId();
 
                 HashMap<String, Object> basicVibeInformation = new HashMap<>();
 
                 basicVibeInformation.put("id", vibeId);
 
                 basicVibeInformation.put("title", title.getEditText().getText().toString());
+
+                basicVibeInformation.put("status", "Draft");
+
+                basicVibeInformation.put("coverPhotoUrl", "https://firebasestorage.googleapis" +
+                                                                  ".com/v0/b/whatsyourvibe.appspot.com/o/upload_image_default.png?alt=media&token=6e7883d6-0c66-4179-b965-a8c4a19a5dfe");
 
                 basicVibeInformation.put("organiserId", currentUserId);
 
@@ -286,5 +318,48 @@ public class VibesActivity extends AppCompatActivity {
 
                     }
                 });
+    }
+
+    private void setNavigationDrawer() {
+        mDrawerLayout = findViewById(R.id.main_navigationView);
+        NavigationView mNavigationView = findViewById(R.id.home_nav_view);
+        mToggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar, R.string.drawer_open,
+                R.string.drawer_close);
+
+        View hView =  mNavigationView.getHeaderView(0);
+        final TextView nav_user = hView.findViewById(R.id.home_drawer_header_tvDisplayName);
+        nav_user.setText(mDisplayName);
+
+        mDrawerLayout.addDrawerListener(mToggle);
+        mToggle.syncState();
+
+        mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+                switch (item.getItemId()){
+                    case R.id.home_drawer_logout:
+
+                        auth.signOut();
+
+                        finish();
+
+                        Toast.makeText(VibesActivity.this, "Thank you for using Whats Your Vibe",
+                                Toast.LENGTH_LONG).show();
+
+                        mDrawerLayout.closeDrawers();
+                        break;
+
+                    case R.id.home_drawer_membership:
+                        Intent i = new Intent(VibesActivity.this, MembershipActivity.class);
+                        startActivity(i);
+                        mDrawerLayout.closeDrawers();
+                        break;
+
+                }
+                return false;
+            }
+        });
+
     }
 }

@@ -1,0 +1,9 @@
+<androidx.appcompat.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/app_secondary_toolbar"
+    android:theme="@style/myToolbarTheme"
+    android:layout_width="match_parent"
+    app:titleTextColor="#fff"
+    android:layout_height="?attr/actionBarSize"
+    android:background="@color/colorAccent"
+    android:elevation="4dp" />

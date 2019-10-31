@@ -2,6 +2,7 @@ package za.co.whatsyourvibe.business.activities.profile;
 
 import android.Manifest;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -34,6 +35,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import io.github.inflationx.viewpump.ViewPumpContextWrapper;
 import za.co.whatsyourvibe.business.R;
 import za.co.whatsyourvibe.business.models.Business;
 
@@ -66,6 +68,13 @@ public class MembershipActivity extends AppCompatActivity {
     private String currentUserId, imageLink;
 
     private Uri mImageUri;
+
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(ViewPumpContextWrapper.wrap(newBase));
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -30,6 +30,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import io.github.inflationx.viewpump.ViewPumpContextWrapper;
 import za.co.whatsyourvibe.business.MainActivity;
 import za.co.whatsyourvibe.business.R;
+import za.co.whatsyourvibe.business.activities.vibe.VibesActivity;
 
 public class SignInActivity extends AppCompatActivity {
 
@@ -207,7 +208,7 @@ public class SignInActivity extends AppCompatActivity {
 
                     editor.apply();
 
-                    Intent i = new Intent(SignInActivity.this, MainActivity.class);
+                    Intent i = new Intent(SignInActivity.this, VibesActivity.class);
                     progressDialog.dismiss();
                     startActivity(i);
                     finish();

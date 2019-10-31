@@ -40,6 +40,8 @@ public class Vibe implements Serializable {
 
     private String group;
 
+    private String coverPhotoUrl;
+
 
     public Vibe() {
     }
@@ -188,5 +190,13 @@ public class Vibe implements Serializable {
 
     public void setAdmission(String admission) {
         this.admission = admission;
+    }
+
+    public String getCoverPhotoUrl() {
+        return coverPhotoUrl;
+    }
+
+    public void setCoverPhotoUrl(String coverPhotoUrl) {
+        this.coverPhotoUrl = coverPhotoUrl;
     }
 }

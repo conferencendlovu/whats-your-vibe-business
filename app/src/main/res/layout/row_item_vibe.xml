@@ -11,7 +11,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <ImageView
+            android:id="@+id/row_item_vibe_ivImage"
+            android:scaleType="fitXY"
+            android:layout_width="match_parent"
+            android:layout_height="250dp" />
+
         <TextView
+            android:layout_marginTop="10dp"
             android:id="@+id/row_item_vibe_tvTitle"
             android:textSize="18sp"
             fontPath="bold.ttf"

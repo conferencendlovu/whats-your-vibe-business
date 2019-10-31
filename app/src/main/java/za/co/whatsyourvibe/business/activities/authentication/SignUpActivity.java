@@ -28,6 +28,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import io.github.inflationx.viewpump.ViewPumpContextWrapper;
 import za.co.whatsyourvibe.business.MainActivity;
 import za.co.whatsyourvibe.business.R;
+import za.co.whatsyourvibe.business.activities.vibe.VibesActivity;
 import za.co.whatsyourvibe.business.models.Business;
 
 public class SignUpActivity extends AppCompatActivity {
@@ -213,7 +214,7 @@ public class SignUpActivity extends AppCompatActivity {
                         Toast.makeText(SignUpActivity.this, "Account created successfully",
                                 Toast.LENGTH_SHORT).show();
 
-                        Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
+                        Intent intent = new Intent(SignUpActivity.this, VibesActivity.class);
 
                         startActivity(intent);
 

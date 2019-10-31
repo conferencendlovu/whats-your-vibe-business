@@ -10,7 +10,7 @@
 
     <include
         android:id="@+id/vibes_details_toolbar"
-        layout="@layout/toolbar"
+        layout="@layout/secondary_toolbar"
         android:layout_height="wrap_content"
         android:layout_width="match_parent" />
 
@@ -29,14 +29,27 @@
 
                 <ImageView
                     android:id="@+id/vibe_details_ivPoster"
+                    android:scaleType="fitXY"
                     android:src="@drawable/upload_image"
                     android:layout_width="match_parent"
                     android:layout_height="250dp" />
 
                 <Button
+                    android:visibility="gone"
                     android:id="@+id/vibe_details_btnVibeStatusUpdate"
                     android:layout_margin="10dp"
                     android:text="Publish"
+                    android:background="@drawable/button_focus"
+                    android:layout_alignParentEnd="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <Button
+                    android:visibility="gone"
+                    android:id="@+id/vibe_details_btnVibeStatusUpdateUnpublish"
+                    android:layout_margin="10dp"
+                    android:text="Unpublish"
+                    android:background="@drawable/button_focus"
                     android:layout_alignParentEnd="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />

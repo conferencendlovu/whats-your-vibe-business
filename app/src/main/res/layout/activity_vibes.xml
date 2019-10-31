@@ -1,38 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.drawerlayout.widget.DrawerLayout  xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
+    android:id="@+id/main_navigationView"
+    android:background="@drawable/app_gradient_background"
     android:layout_height="match_parent"
     tools:context=".activities.vibe.VibesActivity">
 
-    <include
-        android:id="@+id/vibes_toolbar"
-        layout="@layout/toolbar"
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="match_parent">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:visibility="gone"
-        android:id="@+id/vibes_recyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        <include
+            android:id="@+id/vibes_toolbar"
+            layout="@layout/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
-    <ProgressBar
-        android:layout_marginTop="100dp"
-        android:layout_gravity="center_horizontal"
-        android:id="@+id/vibes_progressBar"
-        android:layout_width="50dp"
-        android:layout_height="50dp" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:visibility="gone"
+            android:id="@+id/vibes_recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
-    <TextView
-        android:visibility="gone"
-        android:id="@+id/vibes_textView"
-        android:layout_gravity="center_horizontal"
-        android:gravity="center_horizontal"
-        android:layout_marginTop="20dp"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content" />
+        <ProgressBar
+            android:layout_marginTop="100dp"
+            android:layout_gravity="center_horizontal"
+            android:id="@+id/vibes_progressBar"
+            android:layout_width="50dp"
+            android:layout_height="50dp" />
 
-</LinearLayout>
+        <TextView
+            android:visibility="gone"
+            android:id="@+id/vibes_textView"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content" />
+
+
+    </LinearLayout>
+
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/home_nav_view"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        app:headerLayout="@layout/home_drawer_header"
+        app:menu="@menu/home_drawer_view"
+        android:fitsSystemWindows="true" />
+
+
+</androidx.drawerlayout.widget.DrawerLayout >
