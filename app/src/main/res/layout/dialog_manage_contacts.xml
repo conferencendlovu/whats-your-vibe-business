@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:padding="15dp"
+    android:layout_height="wrap_content">
+
+    <EditText
+        android:id="@+id/dialog_manage_contacts_tel"
+        android:drawableStart="@drawable/icon_tel"
+        android:drawablePadding="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <EditText
+        android:id="@+id/dialog_manage_contacts_cell"
+        android:drawableStart="@drawable/icon_cell"
+        android:drawablePadding="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+
+    <EditText
+        android:drawableStart="@drawable/icon_event_email"
+        android:id="@+id/dialog_manage_contacts_email"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+
+    <Button
+        android:layout_margin="10dp"
+        android:textColor="#fff"
+        android:id="@+id/dialog_social_media_btnUpdate"
+        android:text="Update"
+        android:background="@drawable/round_button_border"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+
+</LinearLayout>

@@ -498,7 +498,32 @@ public class VibeDetailsActivity extends AppCompatActivity implements DatePicker
 
             }
         });
+
+
+        ImageView manangeContacts = findViewById(R.id.vibe_details_btnSocialMedia);
+
+        manangeContacts.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                showContactsDialog(id);
+
+            }
+        });
+
+
+        ImageView manageSocialMedia = findViewById(R.id.vibe_details_btnSocialMedia);
+
+        manageSocialMedia.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                showSocialMediaDialog(id);
+
+            }
+        });
     }
+
 
     private void setCoverPhoto(String id) {
 
@@ -1640,9 +1665,9 @@ public class VibeDetailsActivity extends AppCompatActivity implements DatePicker
 
                 socialLinks.put("facebook", facebook.getText().toString().trim());
 
-                socialLinks.put("instagram", facebook.getText().toString().trim());
+                socialLinks.put("instagram", instagram.getText().toString().trim());
 
-                socialLinks.put("twitter", facebook.getText().toString().trim());
+                socialLinks.put("twitter", twitter.getText().toString().trim());
 
                 FirebaseFirestore socialMediaUpdate = FirebaseFirestore.getInstance();
 
@@ -1676,6 +1701,82 @@ public class VibeDetailsActivity extends AppCompatActivity implements DatePicker
 
         alertDialog.show();
 
+
+    }
+
+    private void showContactsDialog(String id) {
+
+        //before inflating the custom alert dialog layout, we will get the current activity viewgroup
+        ViewGroup viewGroup = findViewById(android.R.id.content);
+
+        //then we will inflate the custom alert dialog xml that we created
+        View dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_manage_contacts, viewGroup, false);
+
+        EditText tel = dialogView.findViewById(R.id.dialog_manage_contacts_tel);
+
+        EditText cel = dialogView.findViewById(R.id.dialog_manage_contacts_cell);
+
+        EditText email = dialogView.findViewById(R.id.dialog_manage_contacts_email);
+
+        // check button
+
+        Button btnUpdateLink = dialogView.findViewById(R.id.dialog_social_media_btnUpdate);
+
+        // perform on click listener
+
+        //Now we need an AlertDialog.Builder object
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        //setting the view of the builder to our custom view that we already inflated
+        builder.setView(dialogView);
+
+        //finally creating the alert dialog and displaying it
+        final AlertDialog alertDialog = builder.create();
+
+        btnUpdateLink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                HashMap<String, Object> eventsContacts = new HashMap<>();
+
+                eventsContacts.put("telephone", tel.getText().toString().trim());
+
+                eventsContacts.put("cellphone", cel.getText().toString().trim());
+
+                eventsContacts.put("email", email.getText().toString().trim());
+
+                FirebaseFirestore contactsUpdateRef = FirebaseFirestore.getInstance();
+
+                contactsUpdateRef.collection("vibes")
+                        .document(id)
+                        .update(eventsContacts)
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+
+                                alertDialog.dismiss();
+
+                                Toast.makeText(VibeDetailsActivity.this, "Contact information " +
+                                                                                 "updated",
+                                        Toast.LENGTH_SHORT).show();
+
+
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+
+                                alertDialog.dismiss();
+
+                                Toast.makeText(VibeDetailsActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        });
+
+            }
+        });
+
+        alertDialog.show();
 
     }
 }
