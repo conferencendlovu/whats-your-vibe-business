@@ -40,6 +40,10 @@ public class Vibe implements Serializable {
 
     private String group;
 
+    private float lat;
+
+    private float lng;
+
     private String coverPhotoUrl;
 
 
@@ -198,5 +202,21 @@ public class Vibe implements Serializable {
 
     public void setCoverPhotoUrl(String coverPhotoUrl) {
         this.coverPhotoUrl = coverPhotoUrl;
+    }
+
+    public float getLng() {
+        return lng;
+    }
+
+    public void setLng(float lng) {
+        this.lng = lng;
+    }
+
+    public float getLat() {
+        return lat;
+    }
+
+    public void setLat(float lat) {
+        this.lat = lat;
     }
 }

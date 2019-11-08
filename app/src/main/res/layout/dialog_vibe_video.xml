@@ -2,29 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/dialog_vibe_video_textView"
-        android:textSize="18sp"
-        fontPath="fonts/bold.ttf"
-        android:text="VIBE TILE"
-        android:layout_gravity="center_horizontal"
-        android:layout_margin="10dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:ignore="MissingPrefix" />
-
-    <VideoView
-        android:id="@+id/dialog_vibe_video_videoView"
+    <WebView
+        android:id="@+id/dialog_vibe_video_wvVideo"
         android:layout_width="match_parent"
-        android:layout_height="350dp" />
+        android:layout_height="250dp">
 
-    <ImageView
-        android:id="@+id/dialog_vibe_video_btnDeleteVideo"
-        android:layout_gravity="end"
-        android:src="@drawable/icon_delete_image"
-        android:layout_margin="10dp"
-        android:layout_width="50dp"
-        android:layout_height="50dp" />
+    </WebView>
+
 </LinearLayout>

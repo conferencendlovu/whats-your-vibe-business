@@ -41,7 +41,7 @@ public class ImagesAdapter  extends RecyclerView.Adapter<ImagesAdapter.MyViewHol
 
         Glide
                 .with(context)
-                .load(imageList.get(position).getUrl())
+                .load(imageList.get(position).getDownloadLink())
                 .centerCrop()
                 .placeholder(R.drawable.spinner)
                 .into(myViewHolder.link);

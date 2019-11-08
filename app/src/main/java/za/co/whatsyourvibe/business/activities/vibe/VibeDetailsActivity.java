@@ -29,6 +29,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebChromeClient;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -169,12 +173,6 @@ public class VibeDetailsActivity extends AppCompatActivity implements DatePicker
         });
 
 
-        // Button addButton = findViewById(R.id.toolbar_createVibe);
-
-        // addButton.setVisibility(View.GONE);
-
-
-
         String apiKey = getString(R.string.api_key);
 
         if (!Places.isInitialized()) {
@@ -217,9 +215,17 @@ public class VibeDetailsActivity extends AppCompatActivity implements DatePicker
 
                 FirebaseFirestore locationRef = FirebaseFirestore.getInstance();
 
+                HashMap<String, Object> eventLocation = new HashMap<>();
+
+                eventLocation.put("lat", place.getLatLng().latitude);
+
+                eventLocation.put("lng", place.getLatLng().longitude);
+
+                eventLocation.put("location", place.getAddress());
+
                 locationRef.collection("vibes")
                         .document(mVibeLocationId)
-                        .update("location", place.getAddress());
+                        .update(eventLocation);
 
 
             } else if (resultCode == AutocompleteActivity.RESULT_ERROR) {
@@ -250,19 +256,7 @@ public class VibeDetailsActivity extends AppCompatActivity implements DatePicker
             }
         }
 
-        if (requestCode == REQUEST_PICK_VIDEO) {
-
-            if (resultCode == RESULT_OK) {
-
-                videoUri = data.getData();
-
-                uploadVideoToServer();
-
-            }
-        }
-
     }
-
 
     private void initViews(String id) {
 
@@ -479,7 +473,7 @@ public class VibeDetailsActivity extends AppCompatActivity implements DatePicker
             @Override
             public void onClick(View v) {
 
-                uploadVideo(id);
+                showEditVibeVideoUrl(id);
             }
         });
 
@@ -781,7 +775,8 @@ public class VibeDetailsActivity extends AppCompatActivity implements DatePicker
 
     private void editLocation(String id) {
 
-        List<Place.Field> fields = Arrays.asList(Place.Field.ID, Place.Field.NAME, Place.Field.ADDRESS);
+        List<Place.Field> fields = Arrays.asList(Place.Field.ID, Place.Field.NAME,
+                Place.Field.ADDRESS, Place.Field.LAT_LNG);
 
         Intent intent = new Autocomplete.IntentBuilder(
                 AutocompleteActivityMode.FULLSCREEN, fields)
@@ -1357,117 +1352,7 @@ public class VibeDetailsActivity extends AppCompatActivity implements DatePicker
 
     }
 
-    private void uploadVideo(String id) {
-
-        // check permissions
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-
-            if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) ==
-                        PackageManager.PERMISSION_DENIED) {
-
-                // permission not granted. ask for it
-                String[] permissions = {Manifest.permission.READ_EXTERNAL_STORAGE};
-
-                // show pop up
-                requestPermissions(permissions, RC_PERMISSION);
-
-            } else {
-
-                // permission already granted
-                pickVideoFromGallery();
-            }
-
-        } else {
-            // device less then mashmallow
-
-            pickVideoFromGallery();
-
-        }
-
-    }
-
-    private void pickVideoFromGallery() {
-
-        Intent pickVideoIntent = new Intent(Intent.ACTION_GET_CONTENT);
-
-        pickVideoIntent.setType("video/*");
-
-        startActivityForResult(pickVideoIntent, REQUEST_PICK_VIDEO);
-
-    }
-
-    private void uploadVideoToServer() {
-
-        progressDialog = new ProgressDialog(this);
-
-        progressDialog.setCanceledOnTouchOutside(false);
-
-        progressDialog.setTitle("Uploading video....");
-
-        progressDialog.show();
-
-        StorageReference storageReference = FirebaseStorage.getInstance().getReference();
-
-        mStorageReference = storageReference.child("/videos/" + vibeId + "/vibe.3gp");
-
-        if (videoUri  != null) {
-
-            UploadTask uploadTask = mStorageReference.putFile(videoUri);
-
-            uploadTask.addOnFailureListener(new OnFailureListener() {
-
-                @Override
-                public void onFailure(@NonNull Exception e) {
-
-                    progressDialog.dismiss();
-
-                    Toast.makeText(VibeDetailsActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-
-                }
-
-            }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-
-                @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-
-                    progressDialog.dismiss();
-
-                    videoUri =  taskSnapshot.getUploadSessionUri();
-
-
-                    FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
-
-                    firebaseFirestore.collection("vibes")
-                            .document(mVibeLocationId)
-                            .update("videoUrl",videoUri.toString() );
-
-                    Toast.makeText(VibeDetailsActivity.this, "Video uploaded successfully",
-                            Toast.LENGTH_SHORT).show();
-
-                }
-
-            });
-
-        }else {
-
-            progressDialog.dismiss();
-
-            Toast.makeText(this, "Nothing to upload", Toast.LENGTH_SHORT).show();
-
-        }
-
-    }
-
     private void showVibeVideo(String id) {
-
-        MediaController mediaController  = new MediaController(this);
-
-        //TextView mBufferingTextView;
-
-        int mCurrentPosition = 0;
-
-
-        Uri uri = Uri.parse(videoPath);
 
         //before inflating the custom alert dialog layout, we will get the current activity viewgroup
         ViewGroup viewGroup = findViewById(android.R.id.content);
@@ -1475,57 +1360,21 @@ public class VibeDetailsActivity extends AppCompatActivity implements DatePicker
         //then we will inflate the custom alert dialog xml that we created
         View dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_vibe_video, viewGroup, false);
 
+        WebView webView = dialogView.findViewById(R.id.dialog_vibe_video_wvVideo);
 
-        final TextView title =
-                dialogView.findViewById(R.id.dialog_vibe_video_textView);
+        webView.getSettings().setJavaScriptEnabled(true);
 
-        VideoView video = dialogView.findViewById(R.id.dialog_vibe_video_videoView);
+        webView.setWebViewClient(new WebViewClient());
 
-        // Show the "Buffering..." message while the video loads.
-        title.setVisibility(VideoView.VISIBLE);
+        webView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
 
-        video.setVideoURI(uri);
+        webView.getSettings().setPluginState(WebSettings.PluginState.ON);
 
-        video.setMediaController(mediaController);
+        webView.getSettings().setMediaPlaybackRequiresUserGesture(false);
 
-        // mediaController.setAnchorView(video);
+        webView.setWebChromeClient(new WebChromeClient());
 
-        // Listener for onPrepared() event (runs after the media is prepared).
-        video.setOnPreparedListener(
-                new MediaPlayer.OnPreparedListener() {
-                    @Override
-                    public void onPrepared(MediaPlayer mediaPlayer) {
-
-                        // Hide buffering message.
-                        //title.setVisibility(VideoView.INVISIBLE);
-
-                        // Restore saved position, if available.
-                        if (mCurrentPosition > 0) {
-                            video.seekTo(mCurrentPosition);
-                        } else {
-                            // Skipping to 1 shows the first frame of the video.
-                            video.seekTo(1);
-                        }
-
-                        // Start playing!
-                        video.start();
-                    }
-                });
-
-        video.setOnCompletionListener(
-                new MediaPlayer.OnCompletionListener() {
-                    @Override
-                    public void onCompletion(MediaPlayer mediaPlayer) {
-
-                        // Return the video position to the start.
-                        video.seekTo(0);
-                    }
-                });
-
-        ImageView delete = dialogView.findViewById(R.id.dialog_vibe_video_btnDeleteVideo);
-
-
-        FirebaseFirestore imagesRef = FirebaseFirestore.getInstance();
+        webView.loadUrl(videoPath);
 
 
         //Now we need an AlertDialog.Builder object
@@ -1540,13 +1389,78 @@ public class VibeDetailsActivity extends AppCompatActivity implements DatePicker
 
         alertDialog.show();
 
-        alertDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
-            @Override
-            public void onDismiss(DialogInterface dialog) {
 
-                video.stopPlayback();
+    }
+
+    private void showEditVibeVideoUrl(String id) {
+
+        //before inflating the custom alert dialog layout, we will get the current activity viewgroup
+        ViewGroup viewGroup = findViewById(android.R.id.content);
+
+        //then we will inflate the custom alert dialog xml that we created
+        View dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_edit_video_link, viewGroup, false);
+
+        TextInputLayout etLink = dialogView.findViewById(R.id.dialog_edit_video_link);
+
+        // check button
+
+        Button btnUpdateLink = dialogView.findViewById(R.id.dialog_edit_vibe_btnUpdate);
+
+        // perform on click listener
+
+        //Now we need an AlertDialog.Builder object
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        //setting the view of the builder to our custom view that we already inflated
+        builder.setView(dialogView);
+
+        //finally creating the alert dialog and displaying it
+        final AlertDialog alertDialog = builder.create();
+
+        btnUpdateLink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (TextUtils.isEmpty(etLink.getEditText().getText())) {
+
+                    etLink.getEditText().setError("Link is required!");
+
+                    return;
+
+                }
+
+                FirebaseFirestore updateLinkRef = FirebaseFirestore.getInstance();
+
+                updateLinkRef.collection("vibes")
+                        .document(id)
+                        .update("videoUrl", etLink.getEditText().getText().toString().trim())
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+
+                                alertDialog.dismiss();
+
+                                Toast.makeText(VibeDetailsActivity.this, "Link updated",
+                                        Toast.LENGTH_SHORT).show();
+
+
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+
+                                alertDialog.dismiss();
+
+                                Toast.makeText(VibeDetailsActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        });
+
             }
         });
+
+        alertDialog.show();
+
 
     }
 
@@ -1686,6 +1600,82 @@ public class VibeDetailsActivity extends AppCompatActivity implements DatePicker
         final AlertDialog alertDialog = builder.create();
 
         alertDialog.show();
+
+    }
+
+    private void showSocialMediaDialog(String id) {
+
+        //before inflating the custom alert dialog layout, we will get the current activity viewgroup
+        ViewGroup viewGroup = findViewById(android.R.id.content);
+
+        //then we will inflate the custom alert dialog xml that we created
+        View dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_social_media, viewGroup, false);
+
+        EditText facebook = dialogView.findViewById(R.id.dialog_social_media_facebook);
+
+        EditText instagram = dialogView.findViewById(R.id.dialog_social_media_instagram);
+
+        EditText twitter = dialogView.findViewById(R.id.dialog_social_media_twitter);
+
+        // check button
+
+        Button btnUpdateLink = dialogView.findViewById(R.id.dialog_social_media_btnUpdate);
+
+        // perform on click listener
+
+        //Now we need an AlertDialog.Builder object
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        //setting the view of the builder to our custom view that we already inflated
+        builder.setView(dialogView);
+
+        //finally creating the alert dialog and displaying it
+        final AlertDialog alertDialog = builder.create();
+
+        btnUpdateLink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                HashMap<String, Object> socialLinks = new HashMap<>();
+
+                socialLinks.put("facebook", facebook.getText().toString().trim());
+
+                socialLinks.put("instagram", facebook.getText().toString().trim());
+
+                socialLinks.put("twitter", facebook.getText().toString().trim());
+
+                FirebaseFirestore socialMediaUpdate = FirebaseFirestore.getInstance();
+
+                socialMediaUpdate.collection("vibes")
+                        .document(id)
+                        .update(socialLinks)
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+
+                                alertDialog.dismiss();
+
+                                Toast.makeText(VibeDetailsActivity.this, "Links updated",
+                                        Toast.LENGTH_SHORT).show();
+
+
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+
+                                alertDialog.dismiss();
+
+                                Toast.makeText(VibeDetailsActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        });
+
+            }
+        });
+
+        alertDialog.show();
+
 
     }
 }

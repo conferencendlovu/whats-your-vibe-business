@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:padding="15dp"
+    android:layout_height="wrap_content">
+
+    <EditText
+        android:id="@+id/dialog_social_media_facebook"
+        android:drawableStart="@drawable/icon_facebook"
+        android:drawablePadding="10dp"
+        android:hint="Type facebook username only"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <EditText
+        android:id="@+id/dialog_social_media_instagram"
+        android:drawableStart="@drawable/icon_instagram"
+        android:hint="Type instagram username only"
+        android:drawablePadding="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+
+    <EditText
+        android:drawableStart="@drawable/icon_twitter"
+        android:drawablePadding="10dp"
+        android:hint="Type twitter username only"
+        android:id="@+id/dialog_social_media_twitter"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+
+    <Button
+        android:layout_margin="10dp"
+        android:textColor="#fff"
+        android:id="@+id/dialog_social_media_btnUpdate"
+        android:text="Update"
+        android:background="@drawable/round_button_border"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+
+</LinearLayout>

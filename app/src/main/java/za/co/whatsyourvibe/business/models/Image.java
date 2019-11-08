@@ -6,7 +6,7 @@ public class Image implements Serializable {
 
     private String id;
 
-    private String url;
+    private String downloadLink;
 
     public Image() {
     }
@@ -19,11 +19,11 @@ public class Image implements Serializable {
         this.id = id;
     }
 
-    public String getUrl() {
-        return url;
+    public String getDownloadLink() {
+        return downloadLink;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
+    public void setDownloadLink(String url) {
+        this.downloadLink = url;
     }
 }
