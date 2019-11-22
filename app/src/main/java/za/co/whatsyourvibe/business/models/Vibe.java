@@ -46,6 +46,18 @@ public class Vibe implements Serializable {
 
     private String coverPhotoUrl;
 
+    private String telephone;
+
+    private String cellphone;
+
+    private String email;
+
+    private String facebook;
+
+    private String twitter;
+
+    private String instagram;
+
 
     public Vibe() {
     }
@@ -218,5 +230,53 @@ public class Vibe implements Serializable {
 
     public void setLat(float lat) {
         this.lat = lat;
+    }
+
+    public String getTelephone() {
+        return telephone;
+    }
+
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
+    }
+
+    public String getCellphone() {
+        return cellphone;
+    }
+
+    public void setCellphone(String cellphone) {
+        this.cellphone = cellphone;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getFacebook() {
+        return facebook;
+    }
+
+    public void setFacebook(String facebook) {
+        this.facebook = facebook;
+    }
+
+    public String getTwitter() {
+        return twitter;
+    }
+
+    public void setTwitter(String twitter) {
+        this.twitter = twitter;
+    }
+
+    public String getInstagram() {
+        return instagram;
+    }
+
+    public void setInstagram(String instagram) {
+        this.instagram = instagram;
     }
 }

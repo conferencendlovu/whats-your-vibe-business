@@ -19,7 +19,7 @@
             android:textSize="18sp"
             android:maxLength="160"
             android:gravity="top"
-            android:hint="Paste YouTube Video link here" />
+            android:hint="Paste Video Url Link" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button

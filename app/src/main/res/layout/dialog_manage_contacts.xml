@@ -9,6 +9,7 @@
         android:drawableStart="@drawable/icon_tel"
         android:drawablePadding="10dp"
         android:layout_marginTop="10dp"
+        android:inputType="phone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
@@ -16,6 +17,7 @@
         android:id="@+id/dialog_manage_contacts_cell"
         android:drawableStart="@drawable/icon_cell"
         android:drawablePadding="10dp"
+        android:inputType="phone"
         android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
@@ -24,6 +26,7 @@
     <EditText
         android:drawableStart="@drawable/icon_event_email"
         android:id="@+id/dialog_manage_contacts_email"
+        android:inputType="textEmailAddress"
         android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />

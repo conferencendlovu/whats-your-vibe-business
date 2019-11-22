@@ -1,7 +1,6 @@
 package za.co.whatsyourvibe.business.activities.vibe;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
@@ -15,10 +14,8 @@ import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -41,13 +38,11 @@ import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.MediaController;
 import android.widget.ProgressBar;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
-import android.widget.VideoView;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.common.api.Status;
@@ -66,7 +61,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.theartofdev.edmodo.cropper.CropImage;
@@ -81,8 +75,6 @@ import java.util.List;
 
 import io.github.inflationx.viewpump.ViewPumpContextWrapper;
 import za.co.whatsyourvibe.business.R;
-import za.co.whatsyourvibe.business.activities.event.EventCategory;
-import za.co.whatsyourvibe.business.activities.event.EventOptionsActivity;
 import za.co.whatsyourvibe.business.adapters.ImagesAdapter;
 import za.co.whatsyourvibe.business.models.Image;
 import za.co.whatsyourvibe.business.models.Vibe;
@@ -90,6 +82,7 @@ import za.co.whatsyourvibe.business.models.Vibe;
 public class VibeDetailsActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener{
 
     private static final String TAG = "VibeDetailsActivity";
+
     private static final int REQUEST_PICK_VIDEO = 122;
 
     private int AUTOCOMPLETE_REQUEST_CODE = 1;
@@ -98,7 +91,7 @@ public class VibeDetailsActivity extends AppCompatActivity implements DatePicker
 
     private static final int COVER_PERMISSION = 201;
 
-    private TextView mDescription, mCategory, mLocation, mDate, mTime;
+    private TextView mDescription, mCategory, mLocation, mDate, mTime, mContacts, mSocialMedia;
 
     private TextView mTicket;
 
@@ -246,6 +239,8 @@ public class VibeDetailsActivity extends AppCompatActivity implements DatePicker
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
             if (resultCode == RESULT_OK) {
 
+                // check variable isCOVERHERE
+
                 mImageUri = result.getUri();
 
                 uploadImage();
@@ -283,6 +278,10 @@ public class VibeDetailsActivity extends AppCompatActivity implements DatePicker
         mPhotos = findViewById(R.id.vibe_details_tvPhotos);
 
         mVideos = findViewById(R.id.vibe_details_tvVideos);
+
+        mContacts = findViewById(R.id.vibe_details_tvContactInfo);
+
+        mSocialMedia = findViewById(R.id.vibe_details_tvSocialMedia);
 
         // edit buttons
 
@@ -329,6 +328,7 @@ public class VibeDetailsActivity extends AppCompatActivity implements DatePicker
                             Toast.makeText(VibeDetailsActivity.this, "Event published successfully",
                                     Toast.LENGTH_SHORT).show();
 
+
                         }else {
 
                             btnUnPublish.setVisibility(View.GONE);
@@ -339,6 +339,8 @@ public class VibeDetailsActivity extends AppCompatActivity implements DatePicker
                                                                              "successfully",
                                     Toast.LENGTH_SHORT).show();
                         }
+
+                        getVibeDetails(id);
 
 
 
@@ -377,6 +379,9 @@ public class VibeDetailsActivity extends AppCompatActivity implements DatePicker
         ivCoverPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                isCoverImage= true;
+
                 setCoverPhoto(id);
             }
         });
@@ -453,6 +458,8 @@ public class VibeDetailsActivity extends AppCompatActivity implements DatePicker
             @Override
             public void onClick(View v) {
 
+                isCoverImage =false;
+
                 checkPermission();
             }
         });
@@ -500,7 +507,7 @@ public class VibeDetailsActivity extends AppCompatActivity implements DatePicker
         });
 
 
-        ImageView manangeContacts = findViewById(R.id.vibe_details_btnSocialMedia);
+        ImageView manangeContacts = findViewById(R.id.vibe_details_btnContactInfo);
 
         manangeContacts.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -523,7 +530,6 @@ public class VibeDetailsActivity extends AppCompatActivity implements DatePicker
             }
         });
     }
-
 
     private void setCoverPhoto(String id) {
 
@@ -655,6 +661,8 @@ public class VibeDetailsActivity extends AppCompatActivity implements DatePicker
                         }else{
                             actCategories.setHint("No categories found");
                         }
+
+                        getVibeDetails(id);
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -790,6 +798,7 @@ public class VibeDetailsActivity extends AppCompatActivity implements DatePicker
                                 Toast.makeText(VibeDetailsActivity.this, "Description updated",
                                         Toast.LENGTH_SHORT).show();
 
+                                getVibeDetails(id);
 
                             }
                         });
@@ -808,6 +817,8 @@ public class VibeDetailsActivity extends AppCompatActivity implements DatePicker
                                 .setCountry("ZA")
                                 .build(this);
         startActivityForResult(intent, AUTOCOMPLETE_REQUEST_CODE);
+
+        getVibeDetails(id);
 
     }
 
@@ -880,13 +891,28 @@ public class VibeDetailsActivity extends AppCompatActivity implements DatePicker
 
                     vibesRef.collection("vibes")
                             .document(id)
-                            .update(ticketsRef);
+                            .update(ticketsRef)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
 
-                    alertDialog.dismiss();
+                                    getVibeDetails(id);
 
-                    mTicket.setText("Early Bird: R" + etEarlyBird.getText().toString() +
-                                            "\nStandard: R" + etStandard.getText().toString() +
-                                            "\nVIP: R" + etVIP.getText().toString()+ "\nGroup: R" + etGroup.getText().toString());
+                                    alertDialog.dismiss();
+
+                                    mTicket.setText("Early Bird: R" + etEarlyBird.getText().toString() +
+                                                            "\nStandard: R" + etStandard.getText().toString() +
+                                                            "\nVIP: R" + etVIP.getText().toString()+ "\nGroup: R" + etGroup.getText().toString());
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+
+                                    Toast.makeText(VibeDetailsActivity.this, e.getMessage(),
+                                            Toast.LENGTH_SHORT).show();
+                                }
+                            });
 
                 }else {
 
@@ -1125,6 +1151,14 @@ public class VibeDetailsActivity extends AppCompatActivity implements DatePicker
                                 mDate.setText(vibe.getDate());
 
                                 mTime.setText(vibe.getTime());
+
+                                mContacts.setText("Tel: " + vibe.getTelephone() +
+                                                         "\nCell: " + vibe.getCellphone() +
+                                                          "\nEmail: " + vibe.getEmail());
+
+                                mSocialMedia.setText("Facebook: " + vibe.getFacebook() +
+                                                             "\nInstagram: " + vibe.getInstagram() +
+                                                             "\nTwitter: " + vibe.getTwitter());
 
                                 if (TextUtils.isEmpty(vibe.getAdmission())) {
 
@@ -1760,6 +1794,7 @@ public class VibeDetailsActivity extends AppCompatActivity implements DatePicker
                                                                                  "updated",
                                         Toast.LENGTH_SHORT).show();
 
+                                getVibeDetails(id);
 
                             }
                         })
