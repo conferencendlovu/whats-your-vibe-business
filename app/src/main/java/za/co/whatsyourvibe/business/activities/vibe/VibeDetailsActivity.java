@@ -188,6 +188,46 @@ public class VibeDetailsActivity extends AppCompatActivity implements DatePicker
 
         }
 
+        Button btnDeleteVibe = findViewById(R.id.vibe_details_btnDeleteEvent);
+
+        btnDeleteVibe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                deleteVibe(vibeId);
+            }
+        });
+
+    }
+
+    private void deleteVibe(String id) {
+
+        FirebaseFirestore vibeRef = FirebaseFirestore.getInstance();
+
+        vibeRef.collection("vibes")
+                .document(id)
+                .update("deleted", "yes")
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+
+                        Toast.makeText(VibeDetailsActivity.this, "Event deleted successfully",
+                                Toast.LENGTH_SHORT).show();
+
+
+                        finish();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+
+                        Toast.makeText(VibeDetailsActivity.this, e.getMessage(),
+                                Toast.LENGTH_SHORT).show();
+
+                    }
+        });
+
     }
 
     @Override

@@ -667,6 +667,15 @@
 
             </androidx.cardview.widget.CardView>
 
+            <Button
+                android:layout_margin="20dp"
+                android:id="@+id/vibe_details_btnDeleteEvent"
+                android:text="DELETE EVENT"
+                android:textColor="#fff"
+                android:background="@drawable/button_danger"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
         </LinearLayout>
 
     </ScrollView>

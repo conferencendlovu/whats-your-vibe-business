@@ -187,6 +187,8 @@ public class VibesActivity extends AppCompatActivity {
 
                 basicVibeInformation.put("status", "Draft");
 
+                basicVibeInformation.put("deleted", "no");
+
                 basicVibeInformation.put("coverPhotoUrl", "https://firebasestorage.googleapis" +
                                                                   ".com/v0/b/whatsyourvibe.appspot.com/o/upload_image_default.png?alt=media&token=6e7883d6-0c66-4179-b965-a8c4a19a5dfe");
 
@@ -256,6 +258,7 @@ public class VibesActivity extends AppCompatActivity {
 
         vibesRef.collection("vibes")
                 .whereEqualTo("organiserId",currentUser)
+                .whereEqualTo("deleted","no")
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots,
@@ -311,8 +314,7 @@ public class VibesActivity extends AppCompatActivity {
 
                             progressBar.setVisibility(View.GONE);
 
-                            textView.setText("Couldn't retrieve Vibes at this time. Try again " +
-                                                     "later");
+                            textView.setText("You don't have any events available");
 
                         }
 
